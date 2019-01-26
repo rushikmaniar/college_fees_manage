@@ -17,12 +17,11 @@ class Login extends CI_Controller {
      */
     public function index()
     {
-        echo 'done';exit;
         if ($this->session->userdata('college-admin')){redirect('backoffice/dashboard','refresh');}
 
         if($this->input->post('LoginFormEmail'))
         {
-            $whr = array("user_email"=>$this->input->post('LoginFormEmail'),"user_password"=>md5($this->input->post('LoginFormPassword')));
+            $whr = array("user_email"=>$this->input->post('LoginFormEmail'),"user_pass"=>md5($this->input->post('LoginFormPassword')));
             $result = $this->CommonModel->getRecord("user",$whr);
             if ($result->num_rows() == 1)
             {
@@ -32,7 +31,7 @@ class Login extends CI_Controller {
             }
             else
             {
-                $this->session->set_flashdata('login_error','Incorrect username and password!');
+                $this->session->set_flashdata('login_error','Incorrect username or password!');
                 redirect('backoffice/login','refresh');
             }
         }
