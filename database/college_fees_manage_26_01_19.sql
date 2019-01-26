@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 26, 2019 at 11:04 AM
--- Server version: 10.1.37-MariaDB
--- PHP Version: 7.3.0
+-- Generation Time: Jan 26, 2019 at 12:00 PM
+-- Server version: 10.1.35-MariaDB
+-- PHP Version: 7.2.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -82,6 +82,7 @@ CREATE TABLE `fees_receipt_records` (
   `stud_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `receipt_date` datetime NOT NULL,
+  `academic_year` varchar(255) NOT NULL,
   `stud_class_id` int(11) NOT NULL,
   `sub_total` int(11) NOT NULL,
   `late_fees` int(11) NOT NULL,
@@ -200,7 +201,8 @@ ALTER TABLE `extra_fees_details`
 -- Indexes for table `fees_receipt_records`
 --
 ALTER TABLE `fees_receipt_records`
-  ADD PRIMARY KEY (`fee_receipt_id`);
+  ADD PRIMARY KEY (`fee_receipt_id`),
+  ADD KEY `stud_id` (`stud_id`,`user_id`,`stud_class_id`);
 
 --
 -- Indexes for table `fees_receipt_records_details`
