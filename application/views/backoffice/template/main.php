@@ -2,52 +2,56 @@
 <html lang="en">
 <!-- Loading All Scripts -->
 <?php $this->load->view('backoffice/template/script.php'); ?>
-<body class="fix-header fix-sidebar">
-<div class="preloader">
-    <svg class="circular" viewBox="25 25 50 50">
-        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"></circle>
-    </svg>
-</div>
+<body>
 
 <!-- Main wrapper  -->
-<div id="main-wrapper">
+<div id="dashboard-main-wrapper">
     <!-- header header  -->
     <?php $this->load->view('backoffice/template/header.php'); ?>
     <!-- End header header -->
     <!-- Left Sidebar  -->
     <?php $this->load->view('backoffice/template/sidebar.php'); ?>
     <!-- End Left Sidebar  -->
-    <!-- Page wrapper  -->
-    <div class="page-wrapper">
-        <!-- Bread crumb -->
-        <div class="row page-titles">
-            <div class="col-md-5 align-self-center">
-                <h3 class="text-primary"><?= $this->pageTitle; ?></h3></div>
-            <div class="col-md-7 align-self-center">
-                <!--<ol class="breadcrumb">
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>-->
-            </div>
-        </div>
-        <!-- End Bread crumb -->
+
+
         <!-- Container fluid  -->
-        <div class="container-fluid">
-
-            <div class="content">
-                <div class="container-fluid">
-
-                    <?= $page_content ?>
-
-                </div> <!-- container -->
-
+        <div class="dashboard-wrapper">
+            <div class="container-fluid dashboard-content">
+                <!-- ============================================================== -->
+                <!-- pageheader -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="page-header">
+                            <h2 class="pageheader-title"><?= $this->pageTitle; ?> </h2>
+                            <p class="pageheader-text">Proin placerat ante duiullam scelerisque a velit ac porta, fusce sit
+                                amet vestibulum mi. Morbi lobortis pulvinar quam.</p>
+                            <div class="page-breadcrumb">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Pages</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page"><?= $this->pageTitle; ?></li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- end pageheader -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <h3 class="text-center">Content goes here!</h3>
+                    </div>
+                </div>
             </div>
-            <!-- End PAge Content -->
-        </div>
         <!-- End Container fluid  -->
         <!-- footer -->
         <?php $this->load->view('backoffice/template/footer.php'); ?>
+        </div>
         <!-- End footer -->
-    </div>
     <!-- End Page wrapper  -->
 </div>
 <!-- End Wrapper -->

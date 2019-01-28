@@ -1,6 +1,21 @@
 <?php //footer scripts ?>
-<footer class="footer"> © 2018 All rights reserved. Rushik's Feedback</footer>
-<div class="modal fade" id="feedback_admin_modal" tabindex="-1" role="dialog" >
+<div class="footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                Copyright © 2018 Concept. All rights reserved. Dashboard by <a href="#">Colorlib</a>.
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                <div class="text-md-right footer-links d-none d-sm-block">
+                    <a href="javascript: void(0);">About</a>
+                    <a href="javascript: void(0);">Support</a>
+                    <a href="javascript: void(0);">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="college_admin_modal" tabindex="-1" role="dialog" >
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
