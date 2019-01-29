@@ -17,19 +17,19 @@ class AdminController extends CI_Controller {
         parent::__construct();
         $this->load->database();
         $this->load->model('CommonModel');
-        /*if(isset($_SESSION['college-admin'])){
-            $whr = array("user_email"=>$this->session->userdata('college-admin')['user_email']);
-            $result = $this->CommonModel->getRecord("user",$whr);
+        if(isset($_SESSION['dakshina-admin'])){
+            $whr = array("user_email"=>$this->session->userdata('dakshina-admin')['user_email']);
+            $result = $this->CommonModel->getRecord("user_master",$whr);
             if($result->num_rows() == 1){
                 //continue
             }else{
-                $this->session->unset_userdata('college-admin');
+                $this->session->unset_userdata('dakshina-admin');
                 redirect(base_url('backoffice/login'));
             }
         }else{
 
            redirect(base_url('backoffice/login'));
-        }*/
+        }
 	}
     public function checkexists($update_field = false,$id = false)
     {

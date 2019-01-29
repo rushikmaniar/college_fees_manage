@@ -12,7 +12,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>College Admin Login</title>
+    <title>Guru Dakshina | Admin</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<?= base_url(); ?>assets/backoffice/vendor/bootstrap/css/bootstrap.min.css">
     <link href="<?= base_url(); ?>assets/backoffice/vendor/fonts/circular-std/style.css" rel="stylesheet">
@@ -54,11 +54,11 @@
 <!-- ============================================================== -->
 <div class="splash-container">
     <div class="card ">
-        <div class="card-header text-center"><a href="#"><img class="logo-img" src="<?= base_url()?>assets/backoffice/images/logo.png" alt="logo"></a><span class="splash-description">Please enter your user information.</span></div>
+        <div class="card-header text-center"><a href="#"><img class="logo-img" src="<?= base_url()?>assets/images/gurudakshina-medium-logo.jpg" alt="logo"></a><span class="splash-description">Please enter your user information.</span></div>
         <div class="card-body">
-            <form id="LoginForm">
+            <form id="LoginForm" method="post">
                 <div class="form-group">
-                    <input class="form-control form-control-lg success"  type="text" placeholder="Username" name="LoginFormUsername" autocomplete="off">
+                    <input class="form-control form-control-lg success"  type="text" placeholder="Username" name="LoginFormEmail" autocomplete="off">
                 </div>
                 <div class="form-group">
                     <input class="form-control form-control-lg" name="LoginFormPassword" type="password" placeholder="Password">

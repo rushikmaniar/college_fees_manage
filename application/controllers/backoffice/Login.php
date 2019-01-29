@@ -17,16 +17,16 @@ class Login extends CI_Controller {
      */
     public function index()
     {
-        if ($this->session->userdata('college-admin')){redirect('backoffice/dashboard','refresh');}
+        if ($this->session->userdata('dakshina-admin')){redirect('backoffice/dashboard','refresh');}
 
-        if($this->input->post('LoginFormEmail'))
+        if( (isset($_POST['LoginFormEmail']))   )
         {
             $whr = array("user_email"=>$this->input->post('LoginFormEmail'),"user_pass"=>md5($this->input->post('LoginFormPassword')));
-            $result = $this->CommonModel->getRecord("user",$whr);
+            $result = $this->CommonModel->getRecord("user_master",$whr);
             if ($result->num_rows() == 1)
             {
                 $user_data = $result->result_array();
-                $this->session->set_userdata("college-admin",$user_data[0]);
+                $this->session->set_userdata("dakshina-admin",$user_data[0]);
                 redirect('backoffice/dashboard','refresh');
             }
             else
@@ -42,7 +42,7 @@ class Login extends CI_Controller {
     public function checkUser()
     {
         $reponse_array = array();
-        $session_user = $this->session->userdata('college-admin');
+        $session_user = $this->session->userdata('dakshina-admin');
         if($session_user){
             $user_data = $this->CommonModel->getRecord('user',array('user_id'=>$session_user['user_id'],'user_email'=>$session_user['user_email']));
 
@@ -68,7 +68,7 @@ class Login extends CI_Controller {
      */
     public function logout()
     {
-        $this->session->unset_userdata('college-admin');
+        $this->session->unset_userdata('dakshina-admin');
         redirect('backoffice/login','refresh');
     }
 }
