@@ -38,6 +38,12 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="<?= base_url()?>backoffice/Department">Department Manage</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= base_url()?>backoffice/StudentManage">Student Manage</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= base_url()?>backoffice/UserManage">User Manage</a>
+                            </li>
                         </ul>
                     </div>
                 </li>

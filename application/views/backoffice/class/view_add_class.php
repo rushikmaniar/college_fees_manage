@@ -6,17 +6,15 @@
 
     <!-- Class Code  -->
     <div class="col-sm-6">
-        <div class="input-group form-group">
+        <div class="form-group">
             <?= form_input(array('name' => 'class_frm_class_id', 'id' => 'class_frm_class_id', 'class' => 'form-control', 'placeholder' => 'Class  Code', 'value' => (isset($class_data)) ? $class_data['class_id'] : '')) ?>
-            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
         </div>
     </div>
 
     <!-- Class Name  -->
     <div class="col-sm-6">
-        <div class="input-group form-group">
+        <div class="form-group">
             <?= form_input(array('name' => 'class_frm_class_name', 'id' => 'class_frm_class_name', 'class' => 'form-control', 'placeholder' => 'Class  Name', 'value' => (isset($class_data)) ? $class_data['class_name'] : '')) ?>
-            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
         </div>
     </div>
 
@@ -41,7 +39,7 @@
     <!--  submit -->
     <div class="col-md-12">
         <button type="submit" id="btn-add-user" class="btn btn-success m-t-10 pull-right">
-            <?= (isset($class_data)) ? '<i class="fa fa-save"></i> Save' : '<i class="fa fa-plus"></i> Add' ?>
+            <?= (isset($class_data)) ? '<i class="ti-save"></i> Save' : '<i class="ti-plus"></i> Add' ?>
         </button>
     </div>
     <?= form_close(); ?>
@@ -56,19 +54,22 @@
              Add Edit Class
              *************************************/
             $("#class_frm").validate({
-                errorClass: 'invalid-feedback animated fadeInDown',
-                /*errorPlacement: function(error, element) {
-                 error.appendTo(element.parent().parent());
-                 },*/
                 errorPlacement: function (e, a) {
-                    jQuery(a).parents(".input-group").append(e)
+                    jQuery(a).parents(".form-group").append(e);
+                    jQuery(e).parent().find('ul').addClass('filled');
                 },
                 highlight: function (e) {
-                    jQuery(e).closest(".input-group").removeClass("is-invalid").addClass("is-invalid")
+                    jQuery(e).removeClass('is-invalid').addClass('is-invalid');
+                    jQuery(e).parent().find('ul').removeClass('filled').addClass('filled');
                 },
                 success: function (e) {
-                    jQuery(e).closest(".input-group").removeClass("is-invalid"), jQuery(e).remove()
+                    $(e).addClass('is-valid');
+                    jQuery(e).parent().find('ul').removeClass('filled');
+                    jQuery(e).parent().parent().find('ul').remove();
                 },
+                errorClass:'is-invalid',
+                errorElement:'li',
+                wrapper:'ul',
                 rules: {
                     'class_frm_class_id': {
                         required: true,
@@ -86,7 +87,18 @@
                         }
                     },
                     'class_frm_class_name': {
-                        required: true
+                        required: true,
+                        remote: {
+                            url: base_url + "backoffice/ClassManagement/checkexists/" +"class_name"+"/"+ update_id,
+                            type: "post",
+                            data: {
+                                'table': 'class_master',
+                                'field': 'class_name',
+                                class_name: function () {
+                                    return $('#class_frm_class_name').val();
+                                }
+                            }
+                        }
                     },
                     'class_frm_dept_id': {
                         required: true
@@ -101,7 +113,8 @@
                         digits: "Only Numeric Accepted"
                     },
                     'class_frm_class_name': {
-                        required: "This field is required."
+                        required: "This field is required.",
+                        remote: "Class code already Exists"
                     },
                     'class_frm_dept_id': {
                         required: "This field is required."

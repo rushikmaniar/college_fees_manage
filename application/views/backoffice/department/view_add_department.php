@@ -7,25 +7,23 @@
 
     <!-- Department Code  -->
     <div class="col-sm-12">
-        <div class="input-group form-group">
+        <div class="form-group">
             <?= form_input(array('name' => 'department_frm_dept_id', 'id' => 'department_frm_dept_id', 'class' => 'form-control', 'placeholder' => 'Department  Code', 'value' => (isset($department_data)) ? $department_data['dept_id'] : '')) ?>
-            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
         </div>
     </div>
 
     <!-- Department Name  -->
     <div class="col-sm-12">
-        <div class="input-group form-group">
+        <div class="form-group">
             <?= form_input(array('name' => 'department_frm_dept_name', 'id' => 'department_frm_dept_name', 'class' => 'form-control', 'placeholder' => 'Department  Name', 'value' => (isset($department_data)) ? $department_data['dept_name'] : '')) ?>
-            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
         </div>
     </div>
 
     <!--  submit -->
     <div class="col-md-12">
         <button type="submit" id="btn-add-user" class="btn btn-success m-t-10 pull-right">
-            <?= (isset($department_data)) ? '<i class="fa fa-save"></i> Save' : '<i class="fa fa-plus"></i> Add' ?>
-        </button>
+            <?= (isset($department_data)) ? '<i class="ti-save"></i> Save' : '<i class="ti-plus"></i> Add' ?>
+        </button
     </div>
     <?= form_close(); ?>
 
@@ -38,26 +36,26 @@
              Add Edit Department
              *************************************/
             $("#department_frm").validate({
-                errorClass: 'invalid-feedback animated fadeInDown',
-                /*errorPlacement: function(error, element) {
-                    error.appendTo(element.parent().parent());
-                },*/
                 errorPlacement: function (e, a) {
-                    jQuery(a).parents(".input-group").append(e)
+                    jQuery(a).parents(".form-group").append(e);
+                    jQuery(e).parent().find('ul').addClass('filled')
                 },
                 highlight: function (e) {
-                    jQuery(e).closest(".input-group").removeClass("is-invalid").addClass("is-invalid")
+                    jQuery(e).parent().find('ul').removeClass('filled').addClass('filled')
                 },
                 success: function (e) {
-                    jQuery(e).closest(".input-group").removeClass("is-invalid"), jQuery(e).remove()
+                    jQuery(e).parent().find('ul').removeClass('filled');
+                    jQuery(e).parent().parent().find('ul').remove()
                 },
+                errorElement:'li',
+                wrapper:'ul',
                 rules:
                     {
                         'department_frm_dept_id': {
                             required: true,
                             digits:true,
                             remote: {
-                                url: base_url+"backoffice/Employee/checkexists/"+"dept_id"+"/"+update_id,
+                                url: base_url+"backoffice/Department/checkexists/"+"dept_id"+"/"+update_id,
                                 type: "post",
                                 data: {
                                     'table': 'department_master',
@@ -69,7 +67,18 @@
                             }
                         },
                         'department_frm_dept_name': {
-                            required: true
+                            required: true,
+                            remote: {
+                                url: base_url+"backoffice/Department/checkexists/"+"dept_name"+"/"+update_id,
+                                type: "post",
+                                data: {
+                                    'table': 'department_master',
+                                    'field': 'dept_name',
+                                    dept_name: function () {
+                                        return $('#department_frm_dept_name').val();
+                                    }
+                                }
+                            }
                         }
                     },
                 messages:
@@ -80,7 +89,8 @@
                             digits: "Only Numeric Accepted"
                         },
                         'department_frm_dept_name': {
-                            required: "This field is required."
+                            required: "This field is required.",
+                            remote:"Department Name already Exists"
                         }
                     }
             });

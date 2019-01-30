@@ -22,10 +22,15 @@ class Login extends CI_Controller {
         if( (isset($_POST['LoginFormEmail']))   )
         {
             $whr = array("user_email"=>$this->input->post('LoginFormEmail'),"user_pass"=>md5($this->input->post('LoginFormPassword')));
-            $result = $this->CommonModel->getRecord("user_master",$whr);
+            $result = $this->CommonModel
+                ->getRecord("user_master",$whr);
+            //check if it is admin
+
             if ($result->num_rows() == 1)
             {
-                $user_data = $result->result_array();
+                $user_data = $result->row_array();
+                if($user_data[''])
+
                 $this->session->set_userdata("dakshina-admin",$user_data[0]);
                 redirect('backoffice/dashboard','refresh');
             }
@@ -44,7 +49,7 @@ class Login extends CI_Controller {
         $reponse_array = array();
         $session_user = $this->session->userdata('dakshina-admin');
         if($session_user){
-            $user_data = $this->CommonModel->getRecord('user',array('user_id'=>$session_user['user_id'],'user_email'=>$session_user['user_email']));
+            $user_data = $this->CommonModel->getRecord('user_master',array('user_id'=>$session_user['user_id'],'user_email'=>$session_user['user_email']));
 
             if($user_data->num_rows() == 1){
                 $reponse_array['code'] = 1;

@@ -7,11 +7,19 @@
 <script src="<?= base_url(); ?>assets/backoffice/vendor/slimscroll/jquery.slimscroll.js"></script>
 <script src="<?= base_url(); ?>assets/backoffice/libs/js/main-js.js"></script>
 
+
+<!-- jquery validation -->
+<script src="<?= base_url() ?>assets/backoffice/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script src="<?= base_url() ?>assets/backoffice/vendor/jquery-validation/js/additional-methods.js"></script>
+
+
 <script src="<?= base_url() ?>assets/backoffice/libs/js/custom.min.js"></script>
 
 <script type="text/javascript">
 
     function ajaxModel(url, title, width) {
+        console.log('called');
+
         if (typeof(width) === 'undefined') {
             width = 'modal-lg';
         }

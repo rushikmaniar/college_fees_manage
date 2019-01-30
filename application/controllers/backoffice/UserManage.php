@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class ClassManagement extends AdminController
+class UserManage extends AdminController
 {
     public function __construct()
     {
@@ -12,60 +12,62 @@ class ClassManagement extends AdminController
     {
         $OrWhere = array();
         $val = '
-        class_master.*,
-        department_master.dept_id,
-        department_master.dept_name
+        user_master.user_id,
+        user_master.user_email,
+        user_master.user_mobile,
+        user_type.user_type_name
         ';
         $class_data = $this->CommonModel
-            ->dbOrderBy(array('class_master.class_id' => 'DESC'))
+            ->dbOrderBy(array('user_master.user_id' => 'DESC'))
             ->dbjoin(
                 array(
                     array(
-                        'table' => 'department_master',
-                        'condition' => 'class_master.dept_id = department_master.dept_id'
+                        'table' => 'user_type',
+                        'condition' => 'user_master.user_type_id = user_type.user_type_id',
+                        'jointype' => 'inner'
                     )
                 )
-            )->getRecord('class_master', $OrWhere, $val)->result_array();
+            )->getRecord('user_master', $OrWhere, $val)->result_array();
 
-        $this->pageTitle = 'Class Management';
-        $this->pageData['class_data'] = $class_data;
-        $this->render("Class/index.php");
+        $this->pageTitle = 'User Management';
+        $this->pageData['user_data'] = $class_data;
+        $this->render("usermanage/index.php");
     }
 
 
     /**
-     * View add Class modal
+     * View add Usermodal
      *
      */
-    public function viewAddClassModal()
+    public function viewAddUserModal()
     {
         $OrWhere = array();
-        $department_data = $this->CommonModel
+        $user_type_data = $this->CommonModel
             ->dbOrderBy(array('dept_id' => 'ASC'))
-            ->getRecord('department_master', $OrWhere, 'department_master.*')->result_array();
+            ->getRecord('user_type', $OrWhere, 'user_type.*')->result_array();
 
-        $this->pageData['department_list'] = $department_data;
-        $this->render("backoffice/Class/view_add_class", FALSE);
+        $this->pageData['user_type_list'] = $user_type_data;
+        $this->render("backoffice/Class/view_add_user", FALSE);
 
     }
 
 
     /**
-     * Add or edit Class
+     * Add or edit User
      *
      */
-    public function addEditClass()
+    public function addEditUser()
     {
 
-        if ($this->input->post('action') && $this->input->post('action') == "addClass") {
-            $class_data = array(
+        if ($this->input->post('action') && $this->input->post('action') == "addUser") {
+            $user_data = array(
                 "class_id" => $this->input->post('class_frm_class_id'),
                 "class_name" => $this->input->post('class_frm_class_name'),
                 "dept_id" => $this->input->post('class_frm_dept_id')
             );
 
 
-            $save = $this->CommonModel->save("class_master", $class_data);
+            $save = $this->CommonModel->save("class_master", $user_data);
 
 
             if ($save != 0) {
@@ -75,17 +77,17 @@ class ClassManagement extends AdminController
             }
         }
 
-        if ($this->input->post('action') && $this->input->post('action') == "editClass") {
+        if ($this->input->post('action') && $this->input->post('action') == "editUser") {
             $update_id = $this->input->post('update_id');
             if ($update_id) {
                 //check entry in entry_record
-                $class_data = array(
+                $user_data = array(
                     "class_id" => $this->input->post('class_frm_class_id'),
                     "class_name" => $this->input->post('class_frm_class_name'),
                     "dept_id" => $this->input->post('class_frm_dept_id')
                 );
 
-                $update = $this->CommonModel->update("class_master", $class_data, array('class_id' => $this->input->post('update_id')));
+                $update = $this->CommonModel->update("class_master", $user_data, array('class_id' => $this->input->post('update_id')));
                 if ($update) {
                     $this->session->set_flashdata("success", "Class updated successfully");
                 } else {
@@ -100,7 +102,7 @@ class ClassManagement extends AdminController
 
 
     /**
-     * View edit modal with set Class data
+     * View edit modal with set Userdata
      *
      * @param int $user_id
      */
@@ -119,7 +121,7 @@ class ClassManagement extends AdminController
 
 
     /**
-     * Delete Class
+     * Delete User
      *
      */
     public function deleteClass()

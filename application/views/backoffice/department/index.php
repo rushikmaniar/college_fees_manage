@@ -5,9 +5,8 @@
                                 class="btn btn-success btn-top"
                                 id="btn_add_user"
                                 onclick="ajaxModel('backoffice/Department/viewAddDepartmentModal','Add New Department','modal-md')"
-                            <?= ($analysis_entry != 0)?'disabled="disabled"':''?>
                         >
-                            <i class="fa fa-plus"></i> Add Department
+                            <i class="ti-plus"></i> Add Department
                         </button>
         </div>
             <table class="display nowrap table table-hover table-striped table-bordered dataTable" id="DepartmentTable">
@@ -29,22 +28,18 @@
                                 <td class="text-center">
                                     <div class="btn-group">
                                         <button type="button"
-                                                <?= ($row['entries'] != 0)?'disabled="disabled"':''?>
                                                 class="btn btn-success btn-sm"
-                                                data-tooltip="<?=($row['entries'] == 0)?'Edit Department':'Delete Record From Entry Record'?>"
                                                 data-container="body" title="Edit Department"
 
                                                 onclick="ajaxModel('backoffice/Department/viewEditDepartmentModal/<?=$row['dept_id']?>','Edit Department',800)">
-                                            <i class="fa fa-pencil"></i>
+                                            <i class="ti-pencil-alt"></i>
                                         </button>
                                         <button type="button"
-                                                <?= ($row['entries'] != 0 || $row['dept_id'] == 0)?'disabled="disabled"':''?>
                                                 class="btn btn-danger btn-sm"
-                                                data-tooltip="<?=($row['entries'] == 0)?'Delete Department':'Delete Record From Entry Record'?>"
                                                 data-container="body"
                                                 title="Delete Department"
                                                 onclick="deletedepartment(<?=$row['dept_id']?>)">
-                                            <i class="fa fa-remove"></i>
+                                            <i class="ti-close"></i>
                                         </button>
                                     </div>
                                 </td>

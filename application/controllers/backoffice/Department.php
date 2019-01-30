@@ -17,14 +17,6 @@ class Department extends AdminController
        ';
         $department_data = $this->CommonModel
             ->dbGroupBy('department_master.dept_id')
-            ->dbjoin(
-                array(
-                    array(
-                        'table' => 'class_master',
-                        'condition' => 'department_master.dept_id = class_master.dept_id'
-                    )
-                )
-            )
             ->dbOrderBy(array('dept_id'=>'DESC'))
             ->getRecord('department_master', $OrWhere, $val)->result_array();
 
