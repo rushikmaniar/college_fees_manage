@@ -11,11 +11,9 @@ class Department extends AdminController
     public function index()
     {
         //check entry in anysis table
-        $analysis_entry = $this->CommonModel->getRecord('analysis_master')->num_rows();
        $OrWhere = array();
        $val = '
-       department_master.*,
-       (SELECT COUNT(entry_id) FROM `entry_record`) as entries 
+       department_master.*
        ';
         $department_data = $this->CommonModel
             ->dbGroupBy('department_master.dept_id')
@@ -31,7 +29,7 @@ class Department extends AdminController
             ->getRecord('department_master', $OrWhere, $val)->result_array();
 
         $this->pageTitle = 'Department Management';
-        $this->pageData['analysis_entry'] = $analysis_entry;
+
         $this->pageData['department_data'] = $department_data;
         $this->render("Department/index.php");
     }
@@ -53,9 +51,6 @@ class Department extends AdminController
      */
     public function addEditDepartment()
     {
-        //check entry in entry_record
-        $entry_record = $this->CommonModel->getRecord('entry_record',array('class_id'=>$this->input->post('class_id')))->num_rows();
-        if($entry_record == 0) {
 
             if ($this->input->post('action') && $this->input->post('action') == "addDepartment") {
                 $department_data = array(
@@ -85,11 +80,7 @@ class Department extends AdminController
                     $this->session->set_flashdata("error", "Problem Editing Department.Try Later");
                 }
             }
-        }else{
-            $this->session->set_flashdata("error", "Entry Record Of this Class Exist . First Delete That Records");
 
-        }
-        
         redirect("backoffice/Department","refresh");
     }
     
@@ -101,7 +92,6 @@ class Department extends AdminController
      */
     public function viewEditDepartmentModal($dept_id)
     {
-
         $department_data = $this->CommonModel->getRecord("department_master",array('dept_id'=>$dept_id))->row_array();
         $this->pageData['department_data'] = $department_data;
         $this->render("backoffice/Department/view_add_Department",FALSE);

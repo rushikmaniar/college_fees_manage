@@ -13,7 +13,7 @@
                     <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fa fa-fw fa-user-circle"></i>Dashboard <span class="badge badge-success">6</span></a>
                     <div id="submenu-1" class="collapse submenu" style="">
                         <ul class="nav flex-column">
-                            <li class="nav-item">
+                            <!--<li class="nav-item">
                                 <a class="nav-link" href="index.html" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1-2" aria-controls="submenu-1-2">E-Commerce</a>
                                 <div id="submenu-1-2" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
@@ -31,28 +31,12 @@
                                         </li>
                                     </ul>
                                 </div>
+                            </li>-->
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= base_url()?>backoffice/ClassManagement">Class Manage</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="../dashboard-finance.html">Finance</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="../dashboard-sales.html">Sales</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1-1" aria-controls="submenu-1-1">Infulencer</a>
-                                <div id="submenu-1-1" class="collapse submenu" style="">
-                                    <ul class="nav flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="../dashboard-influencer.html">Influencer</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="../influencer-finder.html">Influencer Finder</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="../influencer-profile.html">Influencer Profile</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                <a class="nav-link" href="<?= base_url()?>backoffice/Department">Department Manage</a>
                             </li>
                         </ul>
                     </div>

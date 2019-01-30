@@ -7,3 +7,4 @@
 <link href="<?= base_url()?>assets/backoffice/vendor/fonts/circular-std/style.css" rel="stylesheet">
 <link rel="stylesheet" href="<?= base_url()?>assets/backoffice/libs/css/style.css">
 <link rel="stylesheet" href="<?= base_url()?>assets/backoffice/vendor/fonts/fontawesome/css/fontawesome-all.css">
+<script src="<?= base_url(); ?>assets/backoffice/vendor/jquery/jquery.min.js"></script>

@@ -1,8 +1,9 @@
 <?php // js scripts and custom.js ?>
 
 <!-- Optional JavaScript -->
-<script src="<?= base_url(); ?>assets/backoffice/vendor/jquery/jquery-3.3.1.min.js"></script>
+
 <script src="<?= base_url(); ?>assets/backoffice/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+
 <script src="<?= base_url(); ?>assets/backoffice/vendor/slimscroll/jquery.slimscroll.js"></script>
 <script src="<?= base_url(); ?>assets/backoffice/libs/js/main-js.js"></script>
 
