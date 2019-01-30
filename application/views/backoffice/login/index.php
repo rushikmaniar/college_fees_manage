@@ -18,6 +18,13 @@
     <link href="<?= base_url(); ?>assets/backoffice/vendor/fonts/circular-std/style.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= base_url(); ?>assets/backoffice/libs/css/style.css">
     <link rel="stylesheet" href="<?= base_url(); ?>assets/backoffice/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <script src="<?= base_url();?>assets/backoffice/vendor/jquery/jquery-3.3.1.min.js"></script>
+
+
+    <!-- toaster -->
+    <link href="<?= base_url();?>assets/backoffice/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <script src="<?= base_url();?>assets/backoffice/plugins/toastr/toastr.min.js?>"></script>
+
     <style>
         html,
         body {
@@ -83,12 +90,19 @@
 <!-- end login page  -->
 <!-- ============================================================== -->
 <!-- Optional JavaScript -->
-<script src="<?= base_url();?>assets/backoffice/vendor/jquery/jquery-3.3.1.min.js"></script>
 <script src="<?= base_url();?>assets/backoffice/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 <script src="<?= base_url();?>assets/backoffice/vendor/jquery-validation/js/jquery.validate.min.js"></script>
 <script src="<?= base_url();?>assets/backoffice/vendor/jquery-validation/js/additional-methods.js"></script>
 <script>
+
     $(document).ready(function () {
+
+        <?php if($this->session->flashdata('error')) : ?>
+        toastr["error"]('<?= $this->session->flashdata('error') ?>', "Error");
+        <?php elseif($this->session->flashdata('success')) : ?>
+        toastr["success"]('<?= $this->session->flashdata('success') ?>', "Success");
+        <?php endif; ?>
+
         $("#LoginForm").validate({
                 errorPlacement: function (e, a) {
                     jQuery(a).parents(".form-group").append(e);

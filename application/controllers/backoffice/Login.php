@@ -17,28 +17,70 @@ class Login extends CI_Controller {
      */
     public function index()
     {
-        if ($this->session->userdata('dakshina-admin')){redirect('backoffice/dashboard','refresh');}
+        if ($this->session->userdata('dakshina-admin')){
+            //check database
+            $userdata = $this->session->userdata('dakshina-admin');
+            $data = $this->CommonModel
+                ->dbjoin(
+                    array(
+                        array(
+                            'table' => 'user_type',
+                            'condition' => 'user_master.user_type_id = user_type.user_type_id',
+                            'jointype' => 'inner'
+                        )
+                    ))
+                ->getRecord('user_master',array('user_email'=>$userdata['user_email'],'user_type.user_type_name'=>'admin'));
+
+            if($data->num_row() == 1){
+                redirect('backoffice/dashboard','refresh');
+            }else{
+                redirect('backoffice/Login/logout','refresh');
+            }
+            exit;
+
+        }
 
         if( (isset($_POST['LoginFormEmail']))   )
         {
+            $val = '
+            user_master.user_id,
+            user_master.user_email,
+            user_type.user_type_name,
+            user_master.user_mobile,
+            ';
             $whr = array("user_email"=>$this->input->post('LoginFormEmail'),"user_pass"=>md5($this->input->post('LoginFormPassword')));
             $result = $this->CommonModel
-                ->getRecord("user_master",$whr);
+                ->dbjoin(
+                    array(
+                        array(
+                            'table' => 'user_type',
+                            'condition' => 'user_master.user_type_id = user_type.user_type_id',
+                            'jointype' => 'inner'
+                        )
+                    ))
+                ->getRecord("user_master",$whr,$val);
             //check if it is admin
 
             if ($result->num_rows() == 1)
             {
                 $user_data = $result->row_array();
-                if($user_data[''])
+                if($user_data['user_type_name'] == "admin"){
+                    //continue
 
-                $this->session->set_userdata("dakshina-admin",$user_data[0]);
-                redirect('backoffice/dashboard','refresh');
+                    $this->session->set_userdata("dakshina-admin",$user_data);
+                    redirect(base_url('backoffice/dashboard'),'refresh');
+                }else{
+                    //not Authororised
+                    redirect(base_url(),'refresh');
+                }
+
             }
             else
             {
-                $this->session->set_flashdata('login_error','Incorrect username or password!');
+                $this->session->set_flashdata('error','Incorrect username or password!');
                 redirect('backoffice/login','refresh');
             }
+            exit;
         }
         $this->load->view('backoffice/login/index','refresh');
     }

@@ -43,11 +43,10 @@ class UserManage extends AdminController
     {
         $OrWhere = array();
         $user_type_data = $this->CommonModel
-            ->dbOrderBy(array('dept_id' => 'ASC'))
             ->getRecord('user_type', $OrWhere, 'user_type.*')->result_array();
 
         $this->pageData['user_type_list'] = $user_type_data;
-        $this->render("backoffice/Class/view_add_user", FALSE);
+        $this->render("backoffice/usermanage/view_add_user", FALSE);
 
     }
 
@@ -61,17 +60,18 @@ class UserManage extends AdminController
 
         if ($this->input->post('action') && $this->input->post('action') == "addUser") {
             $user_data = array(
-                "class_id" => $this->input->post('class_frm_class_id'),
-                "class_name" => $this->input->post('class_frm_class_name'),
-                "dept_id" => $this->input->post('class_frm_dept_id')
+                "user_email" => $this->input->post('user_frm_user_email'),
+                "user_type_id" => $this->input->post('user_frm_user_type_id'),
+                "user_pass" => $this->input->post('class_frm_dept_id'),
+                "user_mobile" => $this->input->post('user_frm_user_mobile')
             );
 
 
-            $save = $this->CommonModel->save("class_master", $user_data);
+            $save = $this->CommonModel->save("user_master", $user_data);
 
 
             if ($save != 0) {
-                $this->session->set_flashdata("success", "Class added successfully");
+                $this->session->set_flashdata("success", "User added successfully");
             } else {
                 $this->session->set_flashdata("error", "problem adding Class. Try Later");
             }

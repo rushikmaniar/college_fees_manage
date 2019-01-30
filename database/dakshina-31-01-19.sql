@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 30, 2019 at 07:30 PM
+-- Generation Time: Jan 30, 2019 at 08:38 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.0
 
@@ -161,6 +161,13 @@ CREATE TABLE `student_master` (
   `updated_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='student details table ';
 
+--
+-- Dumping data for table `student_master`
+--
+
+INSERT INTO `student_master` (`stud_id`, `enroll_no`, `stud_name`, `stud_gender`, `stud_father_name`, `stud_mobile_no`, `stud_class_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 'as', 'Male', 'as', 9898989898, 1, 1548875448, 1548875448);
+
 -- --------------------------------------------------------
 
 --
@@ -172,15 +179,17 @@ CREATE TABLE `user_master` (
   `user_email` varchar(255) NOT NULL,
   `user_pass` varchar(255) NOT NULL,
   `user_type_id` int(11) NOT NULL COMMENT '1=admin,2=simple',
-  `user_mobile` bigint(10) NOT NULL
+  `user_mobile` bigint(10) NOT NULL,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='site user record table';
 
 --
 -- Dumping data for table `user_master`
 --
 
-INSERT INTO `user_master` (`user_id`, `user_email`, `user_pass`, `user_type_id`, `user_mobile`) VALUES
-(1, 'admin', '698d51a19d8a121ce581499d7b701668', 1, 9898989898);
+INSERT INTO `user_master` (`user_id`, `user_email`, `user_pass`, `user_type_id`, `user_mobile`, `created_at`, `updated_at`) VALUES
+(1, 'admin', '698d51a19d8a121ce581499d7b701668', 1, 9898989898, NULL, NULL);
 
 -- --------------------------------------------------------
 
