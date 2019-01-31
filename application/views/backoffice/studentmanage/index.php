@@ -6,7 +6,7 @@
                 <i class="ti-plus"></i> Add Student
             </button>
         </div>
-        <table class="display nowrap table table-hover table-striped table-bordered dataTable" id="StudentTable">
+        <table class="display table table-hover table-striped table-bordered dataTable" id="StudentTable">
             <thead>
             <tr>
                 <th>Student ID</th>
@@ -57,6 +57,7 @@
     $(document).ready(function () {
 
         $('#StudentTable').dataTable({
+            "scrollX": true,
             dom: 'Bfrtip',
             buttons: [
                 'copy', 'csv', 'excel', 'pdf', 'print'

@@ -1,4 +1,4 @@
-<?= form_open("backoffice/ClassManagement/addEditClass", array('id' => 'user_frm', 'method' => 'post')) ?>
+<?= form_open("backoffice/UserManage/addEditUser", array('id' => 'user_frm', 'method' => 'post')) ?>
 <?= form_input(array('type' => 'hidden', 'name' => 'action', 'id' => 'action', 'value' => (isset($user_data)) ? 'editUser' : 'addUser')) ?>
 <?= form_input(array('type' => 'hidden', 'name' => 'update_id', 'id' => 'update_id', 'value' => (isset($user_data)) ? $user_data['user_id'] : '')) ?>
 
@@ -21,7 +21,7 @@
     <!-- User Pass -->
     <div class="col-sm-6">
         <div class="form-group">
-            <?= form_input(array('name' => 'user_frm_user_pass', 'id' => 'user_frm_user_pass', 'class' => 'form-control', 'placeholder' => 'User Password','readonly'=>'readonly')) ?>
+            <?= form_input(array('name' => 'user_frm_user_pass', 'id' => 'user_frm_user_pass', 'class' => 'form-control','value' => (isset($user_data)) ? $user_data['user_pass'] : '', 'placeholder' => 'User Password','readonly'=>'readonly')) ?>
         </div>
     </div>
 
@@ -105,7 +105,7 @@
                         required: true,
                         regex: '^[789]\\d{9}$',
                         remote: {
-                            url: base_url + "backoffice/StudentManage/checkexists/" + "user_mobile" + "/" + update_id,
+                            url: base_url + "backoffice/StudentManage/checkexists/" + "user_id" + "/" + update_id,
                             type: "post",
                             data: {
                                 'table': 'user_master',
@@ -132,7 +132,7 @@
                     },
                     'user_frm_user_mobile': {
                         required: "This field is required.",
-                        remote: "Mobile NO already Exists",
+                        remote: "Mobile No already Exists",
                         regex: "Invalid Mobile No"
                     },
                     'user_frm_user_type_id': {

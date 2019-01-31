@@ -43,6 +43,7 @@ class UserManage extends AdminController
     {
         $OrWhere = array();
         $user_type_data = $this->CommonModel
+            ->dbOrderBy(array('user_type_id' => 'DESC'))
             ->getRecord('user_type', $OrWhere, 'user_type.*')->result_array();
 
         $this->pageData['user_type_list'] = $user_type_data;
@@ -61,8 +62,8 @@ class UserManage extends AdminController
         if ($this->input->post('action') && $this->input->post('action') == "addUser") {
             $user_data = array(
                 "user_email" => $this->input->post('user_frm_user_email'),
+                "user_pass" => md5($this->input->post('user_frm_user_pass')),
                 "user_type_id" => $this->input->post('user_frm_user_type_id'),
-                "user_pass" => $this->input->post('class_frm_dept_id'),
                 "user_mobile" => $this->input->post('user_frm_user_mobile')
             );
 
@@ -73,7 +74,7 @@ class UserManage extends AdminController
             if ($save != 0) {
                 $this->session->set_flashdata("success", "User added successfully");
             } else {
-                $this->session->set_flashdata("error", "problem adding Class. Try Later");
+                $this->session->set_flashdata("error", "problem adding User. Try Later");
             }
         }
 
@@ -82,22 +83,23 @@ class UserManage extends AdminController
             if ($update_id) {
                 //check entry in entry_record
                 $user_data = array(
-                    "class_id" => $this->input->post('class_frm_class_id'),
-                    "class_name" => $this->input->post('class_frm_class_name'),
-                    "dept_id" => $this->input->post('class_frm_dept_id')
+                    "user_email" => $this->input->post('user_frm_user_email'),
+                    "user_pass" => md5($this->input->post('user_frm_user_pass')),
+                    "user_type_id" => $this->input->post('user_frm_user_type_id'),
+                    "user_mobile" => $this->input->post('user_frm_user_mobile')
                 );
 
-                $update = $this->CommonModel->update("class_master", $user_data, array('class_id' => $this->input->post('update_id')));
+                $update = $this->CommonModel->update("user_master", $user_data, array('user_id' => $this->input->post('update_id')));
                 if ($update) {
-                    $this->session->set_flashdata("success", "Class updated successfully");
+                    $this->session->set_flashdata("success", "User updated successfully");
                 } else {
-                    $this->session->set_flashdata("error", "Problem Editing Class.Try Later");
+                    $this->session->set_flashdata("error", "Problem Editing User.Try Later");
                 }
             } else {
-                $this->session->set_flashdata("error", "Entry Record Of this Class Exist . First Delete That Records");
+                $this->session->set_flashdata("error", "Insuffecient Parameters .");
             }
         }
-        redirect("backoffice/ClassManagement", "refresh");
+        redirect("backoffice/UserManage", "refresh");
     }
 
 
@@ -106,17 +108,17 @@ class UserManage extends AdminController
      *
      * @param int $user_id
      */
-    public function viewEditClassModal($class_id)
+    public function viewEditUserModal($user_id)
     {
         $OrWhere = array();
-        $department_data = $this->CommonModel
-            ->dbOrderBy(array('dept_id' => 'ASC'))
-            ->getRecord('department_master', $OrWhere, 'department_master.*')->result_array();
+        $ser_type_list = $this->CommonModel
+            ->dbOrderBy(array('user_type_id' => 'DESC'))
+            ->getRecord('user_type', $OrWhere, 'user_type.*')->result_array();
 
-        $this->pageData['department_list'] = $department_data;
-        $class_data = $this->CommonModel->getRecord("class_master", array('class_id' => $class_id))->row_array();
-        $this->pageData['class_data'] = $class_data;
-        $this->render("backoffice/Class/view_add_class", FALSE);
+        $this->pageData['user_type_list'] = $ser_type_list;
+        $class_data = $this->CommonModel->getRecord("user_master", array('user_id' => $user_id))->row_array();
+        $this->pageData['user_data'] = $class_data;
+        $this->render("backoffice/usermanage/view_add_user", FALSE);
     }
 
 
@@ -124,22 +126,22 @@ class UserManage extends AdminController
      * Delete User
      *
      */
-    public function deleteClass()
+    public function deleteUser()
     {
-        if ($this->input->post('class_id')) {
+        if ($this->input->post('user_id')) {
             //check entry in entry_record
 
-            $result = $this->CommonModel->delete("class_master", array('class_id' => $this->input->post('class_id')));
+            $result = $this->CommonModel->delete("user_master", array('user_id' => $this->input->post('user_id')));
             if ($result) {
                 $res_output['code'] = 1;
                 $res_output['status'] = "success";
-                $res_output['message'] = "Class deleted successfully";
+                $res_output['message'] = "User deleted successfully";
                 echo json_encode($res_output);
                 exit();
             } else {
                 $res_output['code'] = 0;
                 $res_output['status'] = "error";
-                $res_output['message'] = "Class not deleted";
+                $res_output['message'] = "User not deleted";
                 echo json_encode($res_output);
                 exit();
             }

@@ -1,10 +1,23 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <?php $this->load->view('backoffice/template/script.php'); ?>
 </head>
-
 <body>
+<link rel="stylesheet" type="text/css" href="<?= base_url()?>assets/backoffice/libs/css/preloader.css">
+<div id="loading">
+    <div id="loading-center">
+        <div id="loading-center-absolute">
+            <div class="object" id="object_one"></div>
+            <div class="object" id="object_two"></div>
+            <div class="object" id="object_three"></div>
+            <div class="object" id="object_four"></div>
+        </div>
+    </div>
+
+</div>
+
 <!-- ============================================================== -->
 <!-- main wrapper -->
 <!-- ============================================================== -->

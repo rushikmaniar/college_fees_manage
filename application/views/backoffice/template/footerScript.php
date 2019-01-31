@@ -77,7 +77,7 @@
     }//ajaxmodel end
 
     jQuery(document).ready(function ($) {
-
+        $("#loading").fadeOut(500);
 
         <?php if($this->session->flashdata('error')) : ?>
         toastr["error"]('<?= $this->session->flashdata('error') ?>', "Error");

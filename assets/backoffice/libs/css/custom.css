@@ -6,3 +6,9 @@
     background-color: #f96a6a;
     color: #FFF;
 }
+table{
+    word-wrap: break-word
+}
+.card-body{
+    scroll-behavior: smooth
+}

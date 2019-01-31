@@ -1,4 +1,5 @@
 <div class="card">
+
     <div class="card-body">
         <div class="col-sm-12 col-md-12">
             <button type="button" class="btn btn-success btn-top" id="btn_add_user"
@@ -6,7 +7,7 @@
                 <i class="ti-plus"></i> Add User
             </button>
         </div>
-        <table class="display nowrap table table-hover table-striped table-bordered dataTable" id="UserTable">
+        <table class="display table table-hover table-striped table-bordered dataTable fixed-size" id="UserTable">
             <thead>
             <tr>
                 <th>User Id</th>
