@@ -44,6 +44,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="<?= base_url()?>backoffice/UserManage">User Manage</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= base_url()?>backoffice/ExtraFeesStructure">Extra Fees Structure</a>
+                            </li>
                         </ul>
                     </div>
                 </li>

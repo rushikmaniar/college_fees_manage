@@ -11,7 +11,7 @@ class Profile extends AdminController
     public function index()
     {
         $this->pageTitle = "Profile";
-        $user_data = $this->CommonModel->getRecord('user', array('user_id' => $this->session->userdata('feedback-admin')['user_id']));
+        $user_data = $this->CommonModel->getRecord('user_master', array('user_id' => $this->session->userdata('dakshina-admin')['user_id']));
 
         $this->pageData['user_details'] = $user_data->row_array();
         $this->render('Profile/index.php');

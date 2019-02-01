@@ -99,8 +99,8 @@ John Abraham</span>is now following you
                             <?= $this->session->userdata('dakshina-admin')['user_email']?></h5>
                         <span class="status"></span><span class="ml-2">Available</span>
                     </div>
-                    <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
-                    <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>
+                    <a class="dropdown-item" href="<?= base_url('backoffice/Profile')?>"><i class="fas fa-user mr-2"></i>Account</a>
+                    <a class="dropdown-item" href="#" onclick="ajaxModel('backoffice/Profile/viewChangePasswordModel','Change Password','modal-md')"><i class="fas fa-cog mr-2"></i>Change Password</a>
                     <a class="dropdown-item" href="<?= base_url()?>backoffice/login/logout"><i class="fas fa-power-off mr-2"></i>Logout</a>
                 </div>
             </li>

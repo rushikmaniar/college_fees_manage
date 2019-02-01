@@ -50,6 +50,7 @@
     $(document).ready(function () {
 
         $('#UserTable').dataTable({
+            "scrollX": true,
             dom: 'Bfrtip',
             buttons: [
                 'copy', 'csv', 'excel', 'pdf', 'print'

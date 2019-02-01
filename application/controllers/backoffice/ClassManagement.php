@@ -31,8 +31,6 @@ class ClassManagement extends AdminController
         $this->pageData['class_data'] = $class_data;
         $this->render("Class/index.php");
     }
-
-
     /**
      * View add Class modal
      *
@@ -50,6 +48,8 @@ class ClassManagement extends AdminController
     }
 
 
+
+
     /**
      * Add or edit Class
      *
@@ -57,10 +57,13 @@ class ClassManagement extends AdminController
     public function addEditClass()
     {
 
+
         if ($this->input->post('action') && $this->input->post('action') == "addClass") {
             $class_data = array(
                 "class_id" => $this->input->post('class_frm_class_id'),
                 "class_name" => $this->input->post('class_frm_class_name'),
+                "class_tution_fees" => $this->input->post('class_frm_class_tution_fees'),
+                "class_fees_deadline" => $this->input->post('class_frm_class_fees_deadline'),
                 "dept_id" => $this->input->post('class_frm_dept_id')
             );
 
@@ -82,6 +85,8 @@ class ClassManagement extends AdminController
                 $class_data = array(
                     "class_id" => $this->input->post('class_frm_class_id'),
                     "class_name" => $this->input->post('class_frm_class_name'),
+                    "class_tution_fees" => $this->input->post('class_frm_class_tution_fees'),
+                    "class_fees_deadline" => $this->input->post('class_frm_class_fees_deadline'),
                     "dept_id" => $this->input->post('class_frm_dept_id')
                 );
 
@@ -92,7 +97,7 @@ class ClassManagement extends AdminController
                     $this->session->set_flashdata("error", "Problem Editing Class.Try Later");
                 }
             } else {
-                $this->session->set_flashdata("error", "Entry Record Of this Class Exist . First Delete That Records");
+                $this->session->set_flashdata("error", "Invalid Parameter . Try Later.");
             }
         }
         redirect("backoffice/ClassManagement", "refresh");

@@ -65,7 +65,7 @@
         <div class="card-body">
             <form id="LoginForm" method="post">
                 <div class="form-group">
-                    <input class="form-control form-control-lg success"  type="text" placeholder="Username" name="LoginFormEmail" autocomplete="off">
+                    <input class="form-control form-control-lg success"  type="text" placeholder="User Email" name="LoginFormEmail" autocomplete="off">
                 </div>
                 <div class="form-group">
                     <input class="form-control form-control-lg" name="LoginFormPassword" type="password" placeholder="Password">
@@ -119,7 +119,7 @@
             wrapper:'ul',
             rules:
                 {
-                    LoginFormUsername: {
+                    LoginFormEmail: {
                         required: true,
                         email:true
                     },
@@ -129,7 +129,7 @@
                 },
             messages:
                 {
-                    LoginFormUsername: {
+                    LoginFormEmail: {
                         required: "Email Required",
                         email: "Enter Valid Email"
                     },

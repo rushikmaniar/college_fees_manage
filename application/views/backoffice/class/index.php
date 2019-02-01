@@ -11,6 +11,8 @@
             <tr>
                 <th>Class Code</th>
                 <th>Class Name</th>
+                <th>Class tution Fees</th>
+                <th>Class Fees Deadline</th>
                 <th>Department Code</th>
                 <th>Department Name</th>
                 <th class="text-center">Action</th>
@@ -22,6 +24,8 @@
                     <!-- Class Code -->
                     <td><?= $row['class_id'] ?></td>
                     <td><?= $row['class_name'] ?></td>
+                    <td>&#8377; <?= $row['class_tution_fees'] ?></td>
+                    <td><?= $row['class_fees_deadline'] ?></td>
                     <td><?= ($row['dept_id']) != '' ? $row['dept_id'] : 'No Department'; ?></td>
                     <td><?= ($row['dept_name']) != '' ? $row['dept_name'] : 'No Department'; ?></td>
                     <td class="text-center">
@@ -49,6 +53,7 @@
     $(document).ready(function () {
 
         $('#ClassTable').dataTable({
+            "scrollX": true,
             dom: 'Bfrtip',
             buttons: [
                 'copy', 'csv', 'excel', 'pdf', 'print'

@@ -4,7 +4,7 @@
                         <button type="button"
                                 class="btn btn-success btn-top"
                                 id="btn_add_user"
-                                onclick="ajaxModel('backoffice/Department/viewAddDepartmentModal','Add New Department','modal-md')"
+                                onclick="ajaxModel('backoffice/Department/viewAddExtraFeesStructureModal','Add New Department','modal-md')"
                         >
                             <i class="ti-plus"></i> Add Department
                         </button>
@@ -54,6 +54,7 @@
     $(document).ready(function () {
 
         $('#DepartmentTable').dataTable({
+            "scrollX": true,
             dom: 'Bfrtip',
             buttons: [
                 'copy', 'csv', 'excel', 'pdf', 'print'

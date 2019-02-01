@@ -18,6 +18,20 @@
         </div>
     </div>
 
+    <!-- Class Tution Fees  -->
+    <div class="col-sm-6">
+        <div class="form-group">
+            <?= form_input(array('name' => 'class_frm_class_tution_fees', 'id' => 'class_frm_class_tution_fees', 'class' => 'form-control', 'placeholder' => 'Class  Tution Fees', 'value' => (isset($class_data)) ? $class_data['class_tution_fees'] : '')) ?>
+        </div>
+    </div>
+
+    <!-- Class Tution Fees Deadline  -->
+    <div class="col-sm-6">
+        <div class="form-group">
+            <?= form_input(array('name' => 'class_frm_class_fees_deadline', 'id' => 'class_frm_class_fees_deadline', 'class' => 'form-control', 'placeholder' => 'Class  Tution Fees','type'=>'date', 'value' => (isset($class_data)) ? $class_data['class_tution_fees'] : '')) ?>
+        </div>
+    </div>
+
 
     <!-- Select Department -->
     <div class="col-sm-12">
@@ -89,7 +103,7 @@
                     'class_frm_class_name': {
                         required: true,
                         remote: {
-                            url: base_url + "backoffice/ClassManagement/checkexists/" +"class_name"+"/"+ update_id,
+                            url: base_url + "backoffice/ClassManagement/checkexists/" +"class_id"+"/"+ update_id,
                             type: "post",
                             data: {
                                 'table': 'class_master',
@@ -99,6 +113,13 @@
                                 }
                             }
                         }
+                    },
+                    'class_frm_class_tution_fees': {
+                        required: true,
+                        digits:true
+                    },
+                    'class_frm_class_fees_deadline': {
+                        required: true
                     },
                     'class_frm_dept_id': {
                         required: true
@@ -114,7 +135,15 @@
                     },
                     'class_frm_class_name': {
                         required: "This field is required.",
-                        remote: "Class code already Exists"
+                        remote: "Class Name already Exists"
+                    },
+
+                    'class_frm_class_tution_fees': {
+                        required: "This field is required.",
+                        digits: "Only Numeric Accepted"
+                    },
+                    'class_frm_class_fees_deadline': {
+                        required: "This field is required."
                     },
                     'class_frm_dept_id': {
                         required: "This field is required."
