@@ -32,11 +32,11 @@ DROP TABLE IF EXISTS `class_master`;
 CREATE TABLE IF NOT EXISTS `class_master` (
   `class_id` int(11) NOT NULL AUTO_INCREMENT,
   `class_name` varchar(255) NOT NULL,
-  `dept_id` int(11) NOT NULL,
+  `stream_id` int(11) NOT NULL,
   `no_of_sem` int(11) NOT NULL,
   PRIMARY KEY (`class_id`),
   UNIQUE KEY `class_name` (`class_name`),
-  KEY `dept_id` (`dept_id`) USING BTREE
+  KEY `stream_id` (`stream_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='table for class records';
 
 -- --------------------------------------------------------
@@ -63,9 +63,9 @@ CREATE TABLE IF NOT EXISTS `college_bank_details` (
 
 DROP TABLE IF EXISTS `department_master`;
 CREATE TABLE IF NOT EXISTS `department_master` (
-  `dept_id` int(11) NOT NULL AUTO_INCREMENT,
+  `stream_id` int(11) NOT NULL AUTO_INCREMENT,
   `dept_name` varchar(255) NOT NULL,
-  PRIMARY KEY (`dept_id`)
+  PRIMARY KEY (`stream_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='table for deparmtnet records';
 
 -- --------------------------------------------------------
@@ -211,7 +211,7 @@ CREATE TABLE IF NOT EXISTS `user_type` (
 -- Constraints for table `class_master`
 --
 ALTER TABLE `class_master`
-  ADD CONSTRAINT `class_department_link` FOREIGN KEY (`dept_id`) REFERENCES `department_master` (`dept_id`);
+  ADD CONSTRAINT `class_department_link` FOREIGN KEY (`stream_id`) REFERENCES `department_master` (`stream_id`);
 
 --
 -- Constraints for table `student_master`

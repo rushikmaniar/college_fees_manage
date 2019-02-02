@@ -44,9 +44,8 @@ class CommonModel extends CI_Model
     	if($limit){
     		$this->db->limit($limit,$offset);
     	}
-    	 
     	return $this->db->get();
-    	 
+
     }
     
     public function dbjoin($joins)

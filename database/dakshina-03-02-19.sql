@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 30, 2019 at 08:38 PM
+-- Generation Time: Feb 02, 2019 at 07:31 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.0
 
@@ -31,31 +31,14 @@ SET time_zone = "+00:00";
 CREATE TABLE `class_master` (
   `class_id` int(11) NOT NULL,
   `class_name` varchar(255) NOT NULL,
+  `dept_id` int(11) NOT NULL,
   `stream_id` int(11) NOT NULL,
+  `semester` int(2) NOT NULL,
+  `class_tution_fees` int(11) NOT NULL,
+  `class_fees_deadline` date NOT NULL,
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='table for class records';
-
---
--- Dumping data for table `class_master`
---
-
-INSERT INTO `class_master` (`class_id`, `class_name`, `stream_id`, `created_at`, `updated_at`) VALUES
-(1, 'BCA', 1, 1548854019, 1548854019),
-(2, 'BA', 1, 1548853934, 1548853934);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `college_bank_details`
---
-
-CREATE TABLE `college_bank_details` (
-  `row_id` int(11) NOT NULL,
-  `receivers_name` varchar(255) NOT NULL,
-  `bank_account_no` bigint(20) NOT NULL,
-  `bank_name` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='table for bank accounts for amount to deposits';
 
 -- --------------------------------------------------------
 
@@ -64,7 +47,7 @@ CREATE TABLE `college_bank_details` (
 --
 
 CREATE TABLE `department_master` (
-  `stream_id` int(11) NOT NULL,
+  `dept_id` int(11) NOT NULL,
   `dept_name` varchar(255) NOT NULL,
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL
@@ -74,8 +57,8 @@ CREATE TABLE `department_master` (
 -- Dumping data for table `department_master`
 --
 
-INSERT INTO `department_master` (`stream_id`, `dept_name`, `created_at`, `updated_at`) VALUES
-(1, 'Computer', 1548847355, 1548854422);
+INSERT INTO `department_master` (`dept_id`, `dept_name`, `created_at`, `updated_at`) VALUES
+(1, 'Computer', 1549003747, 1549003747);
 
 -- --------------------------------------------------------
 
@@ -87,7 +70,8 @@ CREATE TABLE `extra_fees_details_structure` (
   `row_id` int(11) NOT NULL,
   `fees_name` varchar(255) NOT NULL,
   `fees_amt` int(11) NOT NULL,
-  `academic_year` varchar(255) NOT NULL
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Table maintains extra fees details';
 
 -- --------------------------------------------------------
@@ -98,7 +82,6 @@ CREATE TABLE `extra_fees_details_structure` (
 
 CREATE TABLE `fees_receipt_records` (
   `fee_receipt_id` int(11) NOT NULL,
-  `fee_on_name` varchar(255) NOT NULL COMMENT 'from_college_details_table',
   `stud_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `receipt_date` datetime NOT NULL,
@@ -131,17 +114,26 @@ CREATE TABLE `fees_receipt_records_details` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fees_structure_table`
+-- Table structure for table `site_settings`
 --
 
-CREATE TABLE `fees_structure_table` (
+CREATE TABLE `site_settings` (
   `row_id` int(11) NOT NULL,
-  `class_id` int(11) NOT NULL,
-  `no-of_sem` int(11) NOT NULL,
-  `class_tution_fees` int(11) NOT NULL,
-  `academic_year` varchar(255) NOT NULL,
-  `fees_deadline` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='fees structure table for various classes';
+  `settings_key` varchar(255) NOT NULL,
+  `settings_value` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='table for bank accounts for amount to deposits';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stream_master`
+--
+
+CREATE TABLE `stream_master` (
+  `stream_id` int(11) NOT NULL,
+  `stream_name` varchar(255) NOT NULL,
+  `no_of_semester` int(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='table maintains stream in colllege';
 
 -- --------------------------------------------------------
 
@@ -157,16 +149,10 @@ CREATE TABLE `student_master` (
   `stud_father_name` varchar(255) NOT NULL,
   `stud_mobile_no` bigint(10) NOT NULL,
   `stud_class_id` int(11) NOT NULL,
+  `stud_sem_no` int(11) NOT NULL,
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='student details table ';
-
---
--- Dumping data for table `student_master`
---
-
-INSERT INTO `student_master` (`stud_id`, `enroll_no`, `stud_name`, `stud_gender`, `stud_father_name`, `stud_mobile_no`, `stud_class_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 'as', 'Male', 'as', 9898989898, 1, 1548875448, 1548875448);
 
 -- --------------------------------------------------------
 
@@ -178,8 +164,9 @@ CREATE TABLE `user_master` (
   `user_id` int(11) NOT NULL,
   `user_email` varchar(255) NOT NULL,
   `user_pass` varchar(255) NOT NULL,
-  `user_type_id` int(11) NOT NULL COMMENT '1=admin,2=simple',
+  `user_type_id` int(1) NOT NULL COMMENT '1=admin,2=simple',
   `user_mobile` bigint(10) NOT NULL,
+  `user_image` varchar(255) DEFAULT NULL,
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='site user record table';
@@ -188,8 +175,8 @@ CREATE TABLE `user_master` (
 -- Dumping data for table `user_master`
 --
 
-INSERT INTO `user_master` (`user_id`, `user_email`, `user_pass`, `user_type_id`, `user_mobile`, `created_at`, `updated_at`) VALUES
-(1, 'admin', '698d51a19d8a121ce581499d7b701668', 1, 9898989898, NULL, NULL);
+INSERT INTO `user_master` (`user_id`, `user_email`, `user_pass`, `user_type_id`, `user_mobile`, `user_image`, `created_at`, `updated_at`) VALUES
+(1, 'admin@dakshina.com', '698d51a19d8a121ce581499d7b701668', 1, 9898989898, 'user_img_1.png', NULL, 1549080228);
 
 -- --------------------------------------------------------
 
@@ -220,20 +207,13 @@ INSERT INTO `user_type` (`user_type_id`, `user_type_name`) VALUES
 ALTER TABLE `class_master`
   ADD PRIMARY KEY (`class_id`),
   ADD UNIQUE KEY `class_name` (`class_name`),
-  ADD KEY `stream_id` (`stream_id`) USING BTREE;
-
---
--- Indexes for table `college_bank_details`
---
-ALTER TABLE `college_bank_details`
-  ADD PRIMARY KEY (`row_id`),
-  ADD UNIQUE KEY `bank_account_no` (`bank_account_no`);
+  ADD KEY `dept_id` (`dept_id`) USING BTREE;
 
 --
 -- Indexes for table `department_master`
 --
 ALTER TABLE `department_master`
-  ADD PRIMARY KEY (`stream_id`);
+  ADD PRIMARY KEY (`dept_id`);
 
 --
 -- Indexes for table `extra_fees_details_structure`
@@ -256,10 +236,18 @@ ALTER TABLE `fees_receipt_records_details`
   ADD PRIMARY KEY (`row_id`);
 
 --
--- Indexes for table `fees_structure_table`
+-- Indexes for table `site_settings`
 --
-ALTER TABLE `fees_structure_table`
-  ADD PRIMARY KEY (`row_id`);
+ALTER TABLE `site_settings`
+  ADD PRIMARY KEY (`row_id`),
+  ADD UNIQUE KEY `bank_account_no` (`settings_value`);
+
+--
+-- Indexes for table `stream_master`
+--
+ALTER TABLE `stream_master`
+  ADD PRIMARY KEY (`stream_id`),
+  ADD UNIQUE KEY `stream_name` (`stream_name`);
 
 --
 -- Indexes for table `student_master`
@@ -291,13 +279,13 @@ ALTER TABLE `user_type`
 -- AUTO_INCREMENT for table `class_master`
 --
 ALTER TABLE `class_master`
-  MODIFY `class_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `class_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `department_master`
 --
 ALTER TABLE `department_master`
-  MODIFY `stream_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `dept_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `extra_fees_details_structure`
@@ -318,10 +306,10 @@ ALTER TABLE `fees_receipt_records_details`
   MODIFY `row_id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `fees_structure_table`
+-- AUTO_INCREMENT for table `stream_master`
 --
-ALTER TABLE `fees_structure_table`
-  MODIFY `row_id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `stream_master`
+  MODIFY `stream_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `student_master`
@@ -349,7 +337,7 @@ ALTER TABLE `user_type`
 -- Constraints for table `class_master`
 --
 ALTER TABLE `class_master`
-  ADD CONSTRAINT `class_department_link` FOREIGN KEY (`stream_id`) REFERENCES `department_master` (`stream_id`);
+  ADD CONSTRAINT `class_department_link` FOREIGN KEY (`dept_id`) REFERENCES `department_master` (`dept_id`);
 
 --
 -- Constraints for table `student_master`

@@ -53,7 +53,7 @@ CREATE TABLE `college_bank_details` (
 --
 
 CREATE TABLE `department_master` (
-  `dept_id` int(11) NOT NULL,
+  `stream_id` int(11) NOT NULL,
   `dept_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='table for deparmtnet records';
 
@@ -188,7 +188,7 @@ ALTER TABLE `college_bank_details`
 -- Indexes for table `department_master`
 --
 ALTER TABLE `department_master`
-  ADD PRIMARY KEY (`dept_id`);
+  ADD PRIMARY KEY (`stream_id`);
 
 --
 -- Indexes for table `extra_fees_details`
@@ -251,7 +251,7 @@ ALTER TABLE `class_master`
 -- AUTO_INCREMENT for table `department_master`
 --
 ALTER TABLE `department_master`
-  MODIFY `dept_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `stream_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `extra_fees_details`

@@ -1,12 +1,6 @@
 <div class="card">
     <div class="card-body">
-        <div class="col-sm-12 col-md-12">
-            <button type="button" class="btn btn-success btn-top" id="btn_add_user"
-                    onclick="ajaxModel('backoffice/ClassManagement/viewAddClassModal','Add New Class','modal-lg')">
-                <i class="ti-plus"></i> Add Class
-            </button>
-        </div>
-        <table class="display nowrap table table-hover table-striped table-bordered dataTable" id="ClassTable">
+        <table class="display nowrap table table-hover table-striped table-bordered dataTable" id="FeesReceiptRecord">
             <thead>
             <tr>
 
@@ -22,7 +16,7 @@
             </tr>
             </thead>
             <tbody>
-            <?php foreach ($class_data as $row): ?>
+            <?php foreach ($fees_receipt_records_data as $row): ?>
                 <tr>
                     <!-- Class Code -->
                     <td><?= $row['fee_receipt_id'] ?></td>
@@ -37,12 +31,8 @@
                         <div class="btn-group">
                             <button type="button" class="btn btn-success btn-sm"
                                     data-container="body" title="Edit User"
-                                    onclick="ajaxModel('backoffice/ClassManagement/viewEditClassModal/<?= $row['class_id'] ?>','Edit Class',800)">
+                                    >
                                 <i class="ti-pencil-alt"></i>
-                            </button>
-                            <button type="button" class="btn btn-danger btn-sm"
-                                    data-container="body" title="Delete Class" onclick="deleteClass(<?= $row['class_id'] ?>)">
-                                <i class="ti-close"></i>
                             </button>
                         </div>
                     </td>
@@ -57,7 +47,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        $('#ClassTable').dataTable({
+        $('#FeesReceiptRecord').dataTable({
             "scrollX": true,
             dom: 'Bfrtip',
             buttons: [
@@ -66,47 +56,5 @@
         });
 
     });
-    /*************************************
-     Delete Class
-     *************************************/
-    function deleteClass(class_id) {
-        swal({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then(function (result) {
-
-            $.ajax({
-                url: base_url + "backoffice/ClassManagement/deleteClass",
-                type: "POST",
-                dataType: "json",
-                data: {"class_id": class_id},
-                success: function (result) {
-                    if (result.code == 1 && result.code != '') {
-                        //success notifiacation
-                        toastr["success"](result.message, "Success");
-                    }
-                    else {
-                        //error notification
-                        toastr["error"](result.message, "Error");
-                    }
-                },
-                error: function (result) {
-                    console.log(result);
-                }
-            });
-            setTimeout(function () {
-                location.reload();
-            }, 1000);
-
-
-        }).catch(swal.noop);
-    }
-    /*************************************
-     Delete Class End
-     *************************************/
+    
 </script>

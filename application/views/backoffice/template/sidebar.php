@@ -33,6 +33,9 @@
                                 </div>
                             </li>-->
                             <li class="nav-item">
+                                <a class="nav-link" href="<?= base_url()?>backoffice/StreamManage">Stream Manage</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="<?= base_url()?>backoffice/ClassManagement">Class Manage</a>
                             </li>
                             <li class="nav-item">
@@ -49,6 +52,9 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="<?= base_url()?>backoffice/FeesReceiptRecord">Fees Receipt Record</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= base_url()?>backoffice/PayStudentFees">Pay Student Fees</a>
                             </li>
                         </ul>
                     </div>

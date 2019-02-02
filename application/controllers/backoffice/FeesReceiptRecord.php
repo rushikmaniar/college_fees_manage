@@ -22,34 +22,28 @@ class FeesReceiptRecord extends AdminController
         fees_receipt_records.late_fees,
         fees_receipt_records.final_total,
         fees_receipt_records.mode_of_payment
-        
         ';
         $fees_receipt_records_data = $this->CommonModel
-            ->dbOrderBy(array('class_master.class_id' => 'DESC'))
+            ->dbOrderBy(array('fees_receipt_records.fee_receipt_id' => 'DESC'))
             ->dbjoin(
-                array(
-                    array(
-                        'table' => 'student_master',
-                        'condition' => 'fees_receipt_records.stud_id = student_master.stud_id',
-                        'jointype' => 'inner'
-                    )
-                ),
                 array(
                     array(
                         'table' => 'user_master',
                         'condition' => 'fees_receipt_records.user_id = user_master.user_id',
                         'jointype' => 'inner'
-                    )
-                ),
-                array(
+                    ),
+                    array(
+                        'table' => 'student_master',
+                        'condition' => 'fees_receipt_records.stud_id = student_master.stud_id',
+                        'jointype' => 'inner'
+                    ),
                     array(
                         'table' => 'class_master',
-                        'condition' => 'fees_receipt_records.class_id = class_master.class_id',
+                        'condition' => 'fees_receipt_records.stud_class_id = class_master.class_id',
                         'jointype' => 'inner'
                     )
                 )
             )->getRecord('fees_receipt_records', $OrWhere, $val)->result_array();
-
         $this->pageTitle = 'Fees Record List';
         $this->pageData['fees_receipt_records_data'] = $fees_receipt_records_data;
         $this->render("feesreceiptrecord/index.php");

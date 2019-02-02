@@ -22,7 +22,7 @@ class Department extends AdminController
 
         $this->pageTitle = 'Department Management';
 
-        $this->pageData['department_data'] = $department_data;
+        $this->pageData['stream_data'] = $department_data;
         $this->render("Department/index.php");
     }
     
@@ -85,7 +85,7 @@ class Department extends AdminController
     public function viewEditDepartmentModal($dept_id)
     {
         $department_data = $this->CommonModel->getRecord("department_master",array('dept_id'=>$dept_id))->row_array();
-        $this->pageData['department_data'] = $department_data;
+        $this->pageData['stream_data'] = $department_data;
         $this->render("backoffice/Department/view_add_Department",FALSE);
     }
     

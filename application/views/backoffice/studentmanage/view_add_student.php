@@ -145,12 +145,12 @@
                         required: true,
                         digits: true,
                         remote: {
-                            url: base_url + "backoffice/ClassManagement/checkexists/" + "class_name" + "/" + update_id,
+                            url: base_url + "backoffice/StudentManage/checkexists/" + "stud_id" + "/" + update_id,
                             type: "post",
                             data: {
                                 'table': 'student_master',
                                 'field': 'enroll_no',
-                                class_name: function () {
+                                enroll_no: function () {
                                     return $('#student_frm_enroll_no').val();
                                 }
                             }
@@ -166,7 +166,18 @@
                         required: true
                     },
                     'student_frm_stud_mobile_no': {
-                        required: true
+                        required: true,
+                        remote: {
+                            url: base_url + "backoffice/StudentManage/checkexists/" + "stud_id" + "/" + update_id,
+                            type: "post",
+                            data: {
+                                'table': 'student_master',
+                                'field': 'stud_mobile_no',
+                                stud_mobile_no: function () {
+                                    return $('#student_frm_stud_mobile_no').val();
+                                }
+                            }
+                        }
                     },
                     'student_frm_stud_class_id': {
                         required: true
@@ -195,7 +206,8 @@
                         required: "This field is required."
                     },
                     'student_frm_stud_mobile_no': {
-                        required: "This field is required."
+                        required: "This field is required.",
+                        remote: "Mobile No  already Exists"
                     },
                     'student_frm_stud_class_id': {
                         required: "This field is required."

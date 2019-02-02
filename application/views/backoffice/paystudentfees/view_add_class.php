@@ -18,24 +18,6 @@
         </div>
     </div>
 
-    <!-- Select Stream -->
-    <div class="col-sm-12">
-        <select name="class_frm_stream_id" id="class_frm_stream_id" style="width: 30%" class="form-control">
-            <?php foreach ($stream_list as $row): ?>
-                <?php if (isset($class_data['stream_id'])): ?>
-                    <?php if (($class_data['stream_id']) == $row['stream_id']): ?>
-                        <option value="<?= $row['stream_id'] ?>" selected><?= $row['stream_name'] ?></option>
-                    <?php else: ?>
-                        <option value="<?= $row['stream_id'] ?>"><?= $row['stream_name'] ?></option>
-                    <?php endif; ?>
-                <?php else: ?>
-                    <option value="<?= $row['stream_id'] ?>"><?= $row['stream_name'] ?></option>
-                <?php endif; ?>
-            <?php endforeach; ?>
-        </select>
-    </div>
-
-
     <!-- Class Tution Fees  -->
     <div class="col-sm-6">
         <div class="form-group">

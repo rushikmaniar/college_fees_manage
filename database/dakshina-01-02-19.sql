@@ -32,21 +32,21 @@ DROP TABLE IF EXISTS `class_master`;
 CREATE TABLE IF NOT EXISTS `class_master` (
   `class_id` int(11) NOT NULL AUTO_INCREMENT,
   `class_name` varchar(255) NOT NULL,
-  `dept_id` int(11) NOT NULL,
+  `stream_id` int(11) NOT NULL,
   `class_tution_fees` int(11) NOT NULL,
   `class_fees_deadline` date NOT NULL,
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`class_id`),
   UNIQUE KEY `class_name` (`class_name`),
-  KEY `dept_id` (`dept_id`) USING BTREE
+  KEY `stream_id` (`stream_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='table for class records';
 
 --
 -- Dumping data for table `class_master`
 --
 
-INSERT INTO `class_master` (`class_id`, `class_name`, `dept_id`, `class_tution_fees`, `class_fees_deadline`, `created_at`, `updated_at`) VALUES
+INSERT INTO `class_master` (`class_id`, `class_name`, `stream_id`, `class_tution_fees`, `class_fees_deadline`, `created_at`, `updated_at`) VALUES
 (1, 'BCA SEM-1', 1, 5000, '2019-02-05', 1549003792, 1549004116);
 
 -- --------------------------------------------------------
@@ -73,18 +73,18 @@ CREATE TABLE IF NOT EXISTS `college_bank_details` (
 
 DROP TABLE IF EXISTS `department_master`;
 CREATE TABLE IF NOT EXISTS `department_master` (
-  `dept_id` int(11) NOT NULL AUTO_INCREMENT,
+  `stream_id` int(11) NOT NULL AUTO_INCREMENT,
   `dept_name` varchar(255) NOT NULL,
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL,
-  PRIMARY KEY (`dept_id`)
+  PRIMARY KEY (`stream_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='table for deparmtnet records';
 
 --
 -- Dumping data for table `department_master`
 --
 
-INSERT INTO `department_master` (`dept_id`, `dept_name`, `created_at`, `updated_at`) VALUES
+INSERT INTO `department_master` (`stream_id`, `dept_name`, `created_at`, `updated_at`) VALUES
 (1, 'Computer', 1549003747, 1549003747);
 
 -- --------------------------------------------------------
@@ -223,7 +223,7 @@ INSERT INTO `user_type` (`user_type_id`, `user_type_name`) VALUES
 -- Constraints for table `class_master`
 --
 ALTER TABLE `class_master`
-  ADD CONSTRAINT `class_department_link` FOREIGN KEY (`dept_id`) REFERENCES `department_master` (`dept_id`);
+  ADD CONSTRAINT `class_department_link` FOREIGN KEY (`stream_id`) REFERENCES `department_master` (`stream_id`);
 
 --
 -- Constraints for table `student_master`
