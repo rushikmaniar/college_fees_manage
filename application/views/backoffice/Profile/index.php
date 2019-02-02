@@ -48,19 +48,19 @@
 
         var update_id = $('#frm_profile_user_id').val();
         $("#frm_profile").validate({
-            errorClass: 'invalid-feedback animated fadeInDown',
-            /*errorPlacement: function(error, element) {
-             error.appendTo(element.parent().parent());
-             },*/
             errorPlacement: function (e, a) {
-                jQuery(a).parents(".input-group").append(e)
+                jQuery(a).parents(".form-group").append(e);
+                jQuery(e).parent().find('ul').addClass('filled')
             },
             highlight: function (e) {
-                jQuery(e).closest(".input-group").removeClass("is-invalid").addClass("is-invalid")
+                jQuery(e).parent().find('ul').removeClass('filled').addClass('filled')
             },
             success: function (e) {
-                jQuery(e).closest(".input-group").removeClass("is-invalid"), jQuery(e).remove()
+                jQuery(e).parent().find('ul').removeClass('filled');
+                jQuery(e).parent().parent().find('ul').remove()
             },
+            errorElement:'li',
+            wrapper:'ul',
             rules: {
                 'frm_profile_user_email': {
                     required: true,
@@ -68,7 +68,7 @@
                         url: base_url + "backoffice/Profile/checkexists/user_id/" + update_id,
                         type: "post",
                         data: {
-                            'table': 'user',
+                            'table': 'user_master',
                             'field': 'user_email',
                             user_email: function () {
                                 return $('#frm_profile_user_email').val();

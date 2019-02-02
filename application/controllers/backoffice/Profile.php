@@ -25,9 +25,9 @@ class Profile extends AdminController
         $user_details = $this->input->post();
 
         //session data
-        $session_user = $this->session->userdata('feedback-admin');
+        $session_user = $this->session->userdata('dakshina-admin');
 
-        $update = $this->CommonModel->update('user', array('user_email' => $user_details['frm_profile_user_email']), array('user_id' => $session_user['user_id']));
+        $update = $this->CommonModel->update('user_master', array('user_email' => $user_details['frm_profile_user_email']), array('user_id' => $session_user['user_id']));
         if ($update) {
             if($_FILES['frm_profile_user_image']){
                 $path =  $_FILES['frm_profile_user_image']['name'];
@@ -36,7 +36,7 @@ class Profile extends AdminController
                 $path = FCPATH.'\\uploads\\user\\profile';
                 $isupload = $this->CommonModel->doUpload('frm_profile_user_image',$path,$filename,'jpg|png');
                 if($isupload){
-                    $image = $this->CommonModel->update('user', array('user_image' => $filename.'.'.$ext), array('user_id' => $session_user['user_id']));
+                    $image = $this->CommonModel->update('user_master', array('user_image' => $filename.'.'.$ext), array('user_id' => $session_user['user_id']));
                 }
 
             }
@@ -44,7 +44,7 @@ class Profile extends AdminController
 
             $session_user['user_email'] = $user_details['frm_profile_user_email'];
             $session_user['user_image'] = $filename.'.'.$ext;
-            $this->session->set_userdata('feedback-admin', $session_user);
+            $this->session->set_userdata('dakshina-admin', $session_user);
 
             $this->session->set_flashdata('success', 'Profile Updated successfully');
 
@@ -57,7 +57,7 @@ class Profile extends AdminController
 
     public function viewChangePasswordModel()
     {
-        $session_user = $this->session->userdata('feedback-admin');
+        $session_user = $this->session->userdata('dakshina-admin');
 
         $user_id = $session_user['user_id'];
         $this->pageData['user_id'] = $user_id;
@@ -66,9 +66,9 @@ class Profile extends AdminController
 
     public function checkPassword()
     {
-        $session_user = $this->session->userdata('feedback-admin');
+        $session_user = $this->session->userdata('dakshina-admin');
         $old_password = $this->input->post('frm_change_password_oldpassword');
-        $result = $this->CommonModel->getRecord('user', array('user_id' => $session_user['user_id'], 'user_password' => md5($old_password)));
+        $result = $this->CommonModel->getRecord('user_master', array('user_id' => $session_user['user_id'], 'user_pass' => md5($old_password)));
 
         if ($result->num_rows() == 1) {
             echo 'true';
@@ -79,13 +79,13 @@ class Profile extends AdminController
 
     public function updatePassword()
     {
-        $session_user = $this->session->userdata('feedback-admin');
+        $session_user = $this->session->userdata('dakshina-admin');
         $post_data = $this->input->post();
 
         if ($post_data) {
-            $data = array('user_password' => md5($post_data['frm_change_password_newpassword']));
+            $data = array('user_pass' => md5($post_data['frm_change_password_newpassword']));
             $where = array('user_id' => $session_user['user_id']);
-            $update = $this->CommonModel->update('user', $data, $where);
+            $update = $this->CommonModel->update('user_master', $data, $where);
             if ($update) {
                 $this->session->set_flashdata('success', 'Password Update successfully.');
             } else {

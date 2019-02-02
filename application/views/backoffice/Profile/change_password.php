@@ -58,19 +58,19 @@
     $(document).ajaxComplete(function () {
         var update_id = $('#frm_change_password_user_id').val();
         $("#frm_change_password").validate({
-            errorClass: 'invalid-feedback animated fadeInDown',
-            /*errorPlacement: function(error, element) {
-             error.appendTo(element.parent().parent());
-             },*/
             errorPlacement: function (e, a) {
-                jQuery(a).parents(".input-group").append(e)
+                jQuery(a).parents(".form-group").append(e);
+                jQuery(e).parent().find('ul').addClass('filled')
             },
             highlight: function (e) {
-                jQuery(e).closest(".input-group").removeClass("is-invalid").addClass("is-invalid")
+                jQuery(e).parent().find('ul').removeClass('filled').addClass('filled')
             },
             success: function (e) {
-                jQuery(e).closest(".input-group").removeClass("is-invalid"), jQuery(e).remove()
+                jQuery(e).parent().find('ul').removeClass('filled');
+                jQuery(e).parent().parent().find('ul').remove()
             },
+            errorElement:'li',
+            wrapper:'ul',
             rules: {
 
                 'frm_change_password_oldpassword': {
@@ -79,7 +79,7 @@
                         url: base_url + "backoffice/Profile/checkPassword/",
                         type: "post",
                         data: {
-                            user_password: function () {
+                            user_pass: function () {
                                 return $('#frm_change_password_oldpassword').val();
                             }
                         }
