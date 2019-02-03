@@ -44,27 +44,31 @@ class StreamManage extends AdminController
 
             if ($this->input->post('action') && $this->input->post('action') == "addStream") {
                 $stream_data = array(
-                    "stream_id" => $this->input->post('department_frm_dept_id'),
-                    "stream_name" => $this->input->post('department_frm_dept_name')
+                    "stream_name" => $this->input->post('stream_frm_stream_name'),
+                    "no_of_semester" => $this->input->post('stream_frm_no_of_semester')
                 );
 
 
-                $save = $this->CommonModel->save("department_master", $stream_data);
+                $save = $this->CommonModel->save("stream_master", $stream_data);
                 if ($save) {
-                    $this->session->set_flashdata("success", "Department added successfully");
+                    $this->session->set_flashdata("success", "Stream added successfully");
                 } else {
-                    $this->session->set_flashdata("error", "problem adding Department. Try Later");
+                    $this->session->set_flashdata("error", "problem adding Stream. Try Later");
                 }
             }
 
             if ($this->input->post('action') && $this->input->post('action') == "editStream" && $this->input->post('update_id')) {
 
                 $stream_data = array(
-                    "stream_name" => $this->input->post('department_frm_dept_name'),
-                    "no_of_semester" => $this->input->post('department_frm_dept_name')
+                    "stream_name" => $this->input->post('stream_frm_stream_name'),
+                    "no_of_semester" => $this->input->post('stream_frm_no_of_semester')
                 );
 
-                $update = $this->CommonModel->update("stream_master", $stream_data, array('dept_id' => $this->input->post('update_id')));
+                $update = $this->CommonModel->update("stream_master", $stream_data, array('stream_id' => $this->input->post('update_id')));
+
+                //delete semester larger than given from class_master table
+                $result = $this->CommonModel->delete("class_master",array('stream_id = '.$this->input->post('update_id').' AND semester > '.$stream_data['no_of_semester']));
+
                 if ($update) {
                     $this->session->set_flashdata("success", "Stream updated successfully");
                 } else {

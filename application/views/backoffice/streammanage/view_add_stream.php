@@ -1,4 +1,4 @@
-<?= form_open("backoffice/Department/addEditStream", array('id' => 'stream_frm', 'method' => 'post')) ?>
+<?= form_open("backoffice/StreamManage/addEditStream", array('id' => 'stream_frm', 'method' => 'post')) ?>
 <?= form_input(array('type' => 'hidden', 'name' => 'action', 'id' => 'action', 'value' => (isset($stream_data)) ? 'editStream' : 'addStream')) ?>
 <?= form_input(array('type' => 'hidden', 'name' => 'update_id', 'id' => 'update_id', 'value' => (isset($stream_data)) ? $stream_data['stream_id'] : '')) ?>
 
@@ -50,11 +50,6 @@
                 wrapper:'ul',
                 rules:
                     {
-                        'stream_frm_no_of_semester':{
-                            required: true,
-                            digit:true,
-                            range:[1,8]
-                        },
                         'stream_frm_stream_name': {
                             required: true,
                             remote: {
@@ -68,6 +63,10 @@
                                     }
                                 }
                             }
+                        },
+                        'stream_frm_no_of_semester':{
+                            required: true,
+                            range:[1,8]
                         }
                     },
                 messages:
@@ -78,7 +77,6 @@
                         },
                         'stream_frm_no_of_semester': {
                             required: "This field is required.",
-                            digit:"Only Digit",
                             range:"Should be 1 to 8"
                         }
                     }

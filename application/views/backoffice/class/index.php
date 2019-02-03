@@ -13,6 +13,8 @@
                 <th>Class Name</th>
                 <th>Class tution Fees</th>
                 <th>Class Fees Deadline</th>
+                <th>Stream Name</th>
+                <th>Semester</th>
                 <th>Department Code</th>
                 <th>Department Name</th>
                 <th class="text-center">Action</th>
@@ -26,13 +28,15 @@
                     <td><?= $row['class_name'] ?></td>
                     <td>&#8377; <?= $row['class_tution_fees'] ?></td>
                     <td><?= $row['class_fees_deadline'] ?></td>
+                    <td><?= $row['stream_name'] ?></td>
+                    <td><?= $row['semester'] ?></td>
                     <td><?= ($row['dept_id']) != '' ? $row['dept_id'] : 'No Department'; ?></td>
                     <td><?= ($row['dept_name']) != '' ? $row['dept_name'] : 'No Department'; ?></td>
                     <td class="text-center">
                         <div class="btn-group">
                             <button type="button" class="btn btn-success btn-sm"
                                     data-container="body" title="Edit User"
-                                    onclick="ajaxModel('backoffice/ClassManagement/viewEditClassModal/<?= $row['class_id'] ?>','Edit Class',800)">
+                                    onclick="ajaxModel('backoffice/ClassManagement/viewEditClassModal/<?= $row['class_id'] ?>','Edit Class','modal-lg')">
                                 <i class="ti-pencil-alt"></i>
                             </button>
                             <button type="button" class="btn btn-danger btn-sm"
@@ -46,8 +50,8 @@
             </tbody>
         </table>
     </div>
-
 </div>
+
 
 <script type="text/javascript">
     $(document).ready(function () {

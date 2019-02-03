@@ -19,41 +19,69 @@
     </div>
 
     <!-- Select Stream -->
-    <div class="col-sm-12">
-        <select name="class_frm_stream_id" id="class_frm_stream_id" style="width: 30%" class="form-control">
+    <div class="col-md-6">
+        <div class="form-group">
+        <select name="class_frm_stream_id" id="class_frm_stream_id" style="width: 100%" class="form-control">
+            <option value="" selected>-- Select Stream --</option>
             <?php foreach ($stream_list as $row): ?>
                 <?php if (isset($class_data['stream_id'])): ?>
                     <?php if (($class_data['stream_id']) == $row['stream_id']): ?>
-                        <option value="<?= $row['stream_id'] ?>" selected><?= $row['stream_name'] ?></option>
+                        <option value="<?= $row['stream_id'] ?>" selected data-no_of_sem="<?= $row['no_of_semester']?>"><?= $row['stream_name'] ?></option>
                     <?php else: ?>
-                        <option value="<?= $row['stream_id'] ?>"><?= $row['stream_name'] ?></option>
+                        <option value="<?= $row['stream_id'] ?>" data-no_of_sem="<?= $row['no_of_semester']?>"><?= $row['stream_name'] ?></option>
                     <?php endif; ?>
                 <?php else: ?>
-                    <option value="<?= $row['stream_id'] ?>"><?= $row['stream_name'] ?></option>
+                    <option value="<?= $row['stream_id'] ?>" data-no_of_sem="<?= $row['no_of_semester']?>"><?= $row['stream_name'] ?></option>
                 <?php endif; ?>
             <?php endforeach; ?>
         </select>
+        </div>
+    </div>
+
+    <!-- Select Semester -->
+    <div class="col-md-6">
+        <div class="form-group">
+        <select name="class_frm_semester" id="class_frm_semester" style="width: 100%"  class="form-control">
+            <option value="" selected>-- Select Semester --</option>
+            <?php if (isset($sem_list)): ?>
+                <?php foreach ($sem_list as $row): ?>
+
+                        <?php if (($class_data['semester']) == $row): ?>
+                            <option value="<?= $row ?>" selected><?= $row ?></option>
+                        <?php else: ?>
+                            <option value="<?= $row ?>"><?= $row ?></option>
+                        <?php endif; ?>
+
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </select>
+        </div>
     </div>
 
 
     <!-- Class Tution Fees  -->
     <div class="col-sm-6">
         <div class="form-group">
+            <div class="input-group-prepend">
+            <span class="input-group-text">&#8377;</span>
             <?= form_input(array('name' => 'class_frm_class_tution_fees', 'id' => 'class_frm_class_tution_fees', 'class' => 'form-control', 'placeholder' => 'Class  Tution Fees', 'value' => (isset($class_data)) ? $class_data['class_tution_fees'] : '')) ?>
+            </div>
         </div>
     </div>
 
     <!-- Class Tution Fees Deadline  -->
     <div class="col-sm-6">
         <div class="form-group">
-            <?= form_input(array('name' => 'class_frm_class_fees_deadline', 'id' => 'class_frm_class_fees_deadline', 'class' => 'form-control', 'placeholder' => 'Class  Tution Fees','type'=>'date', 'value' => (isset($class_data)) ? $class_data['class_tution_fees'] : '')) ?>
+            <?= form_input(array('name' => 'class_frm_class_fees_deadline', 'id' => 'class_frm_class_fees_deadline', 'class' => 'form-control', 'placeholder' => 'Class  Tution Fees','type'=>'date', 'value' => (isset($class_data)) ? $class_data['class_fees_deadline'] : '')) ?>
         </div>
     </div>
 
 
     <!-- Select Department -->
-    <div class="col-sm-12">
-            <select name="class_frm_dept_id" id="class_frm_dept_id" style="width: 30%" class="form-control">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <select name="class_frm_dept_id" id="class_frm_dept_id" style="width: 100%" class="form-control">
+                <option value="" selected>-- Select Department --</option>
                 <?php foreach ($department_list as $row): ?>
                     <?php if (isset($class_data['dept_id'])): ?>
                         <?php if (($class_data['dept_id']) == $row['dept_id']): ?>
@@ -65,7 +93,9 @@
                         <option value="<?= $row['dept_id'] ?>"><?= $row['dept_name'] ?></option>
                     <?php endif; ?>
                 <?php endforeach; ?>
+
             </select>
+        </div>
     </div>
 
     <!--  submit -->
@@ -79,8 +109,24 @@
     <script>
 
         var update_id = $('#update_id').val();
-        $(document).ready(function () {
+        $(document).ajaxComplete(function () {
             $('#class_frm_dept_id').select2();
+            $('#class_frm_stream_id').select2();
+            $('#class_frm_semester').select2();
+
+            $('#class_frm_stream_id').change(function () {
+                var no_of_sem = $(this).find(':selected').data('no_of_sem');
+                if(no_of_sem !== ""){
+                    no_of_sem = parseInt(no_of_sem);
+                    $('#class_frm_semester').html('');
+                    $('#class_frm_semester').append('<option value="">-- Select Semester -- </option>');
+
+                    for (i=1;i<=no_of_sem;i++){
+                        $('#class_frm_semester').append('<option value="'+i+'">'+i+'</option>');
+                    }
+
+                }
+            });
 
             /*************************************
              Add Edit Class
@@ -141,6 +187,28 @@
                     },
                     'class_frm_dept_id': {
                         required: true
+                    },
+                    'class_frm_stream_id': {
+                        required: true
+                    },
+                    'class_frm_semester': {
+                        required: true,
+                        remote: {
+                            url: base_url + "backoffice/ClassManagement/checkSemester/" +"class_id"+"/"+ update_id,
+                            type: "post",
+                            data: {
+                                'table': 'class_master',
+                                'field1': 'semester',
+                                semester: function () {
+                                    return $('#class_frm_semester').val();
+                                },
+                                'field2': 'stream_id',
+                                stream_id: function () {
+                                    return $('#class_frm_stream_id').val();
+                                }
+
+                            }
+                        }
                     }
 
                 },
@@ -165,6 +233,13 @@
                     },
                     'class_frm_dept_id': {
                         required: "This field is required."
+                    },
+                    'class_frm_stream_id': {
+                        required: "This field is required."
+                    },
+                    'class_frm_semester': {
+                        required: "This field is required.",
+                        remote: "This Semester For This Stream Already Exists"
                     }
                 }
             });
