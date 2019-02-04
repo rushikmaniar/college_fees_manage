@@ -108,7 +108,7 @@
                                     <input type="hidden" name="tution_fees_frm_tution_fees_amt" value="<?=$value['class_tution_fees']?>">
                                     Tution Fees To Pay : <?= $value['class_tution_fees']; ?></li>
                                 <li>
-                                    <button type="submit" class="btn-sm btn-success" onclick="confirm('Are U sure . Want To Pay Tution Fees')">Pay Fees Online</button>
+                                    <button type="submit" class="btn-sm btn-success" onclick="if(!confirm('Are U sure . Want To Pay Tution Fees'))return false;">Pay Fees Online</button>
                                 </li>
                             </ul>
                             </form>

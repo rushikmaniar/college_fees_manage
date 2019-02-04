@@ -1,41 +1,37 @@
 <?php // js scripts and custom.js ?>
-<script async defer src="https://buttons.github.io/buttons.js"></script>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
-<!-- blink.js -->
-<script src="<?= base_url().'assets/fronted/plugins/modern-blink/jquery.modern-blink.js'?>"></script>
+<script src="<?= base_url(); ?>assets/js/popper.js"></script>
+<script src="<?= base_url(); ?>assets/js/bootstrap.min.js"></script>
+<script src="<?= base_url(); ?>assets/js/stellar.js"></script>
+<script src="<?= base_url(); ?>assets/vendors/lightbox/simpleLightbox.min.js"></script>
+<script src="<?= base_url(); ?>assets/vendors/nice-select/js/jquery.nice-select.min.js"></script>
+<script src="<?= base_url(); ?>assets/vendors/isotope/imagesloaded.pkgd.min.js"></script>
+<script src="<?= base_url(); ?>assets/vendors/isotope/isotope.pkgd.min.js"></script>
+<script src="<?= base_url(); ?>assets/vendors/owl-carousel/owl.carousel.min.js"></script>
+<script src="<?= base_url(); ?>assets/vendors/popup/jquery.magnific-popup.min.js"></script>
+<script src="<?= base_url(); ?>assets/js/jquery.ajaxchimp.min.js"></script>
+<script src="<?= base_url(); ?>assets/vendors/counter-up/jquery.waypoints.min.js"></script>
+<script src="<?= base_url(); ?>assets/vendors/counter-up/jquery.counterup.js"></script>
+<script src="<?= base_url(); ?>assets/js/mail-script.js"></script>
+<script src="<?= base_url(); ?>assets/js/theme.js"></script>
 
-<!-- jquery step.js -->
-<script src="<?= base_url().'assets/fronted/plugins/jquery.steps/js/jquery.steps.min.js'?>"></script>
-
-<!-- jquery validation.js -->
-<script src="<?= base_url().'assets/fronted/plugins/jquery-validation/js/jquery.validate.min.js'?>"></script>
-<script src="<?= base_url().'assets/fronted/plugins/jquery-validation/js/additional-methods.js'?>"></script>
-
-<!-- select2.js -->
-<script src="<?= base_url().'assets/fronted/plugins/select2/js/select2.min.js';?>"></script>
-<!-- tostr -->
-<script src="<?= base_url().'assets/fronted/plugins/toastr/toastr.min.js';?>"></script>
-
-<!-- responsiveslide -->
-<script src="<?= base_url().'assets/fronted/plugins/responsiveslides/responsiveslides.min.js';?>"></script>
-
-<script src="<?= base_url().'assets/fronted/js/shards.min.js'?>"></script>
 
 <script type="text/javascript">
 
     $(document).ready(function () {
         //blink text
-        $('.blink').modernBlink({
-            duration: 2000
-        });
+       
         <?php if($this->session->flashdata('error')) : ?>
         toastr["error"]('<?= $this->session->flashdata('error') ?>', "Error");
         <?php elseif($this->session->flashdata('success')) : ?>
         toastr["success"]('<?= $this->session->flashdata('success') ?>', "Success");
         <?php endif; ?>
     });
+
+
     function ajaxModel(url, title, width) {
         if (typeof(width) === 'undefined') {
             width = 'modal-lg';
@@ -45,12 +41,12 @@
                 url: SITE_URL + url,
                 dataType: 'html',
                 success: function (responce) {
-                    $('#feedback_frontsite_modal .modal-title').html(title);
-                    $('#feedback_frontsite_modal .modal-body').html(responce);
-                    $('#feedback_frontsite_modal .modal-dialog').addClass(width);
+                    $('#dakshina_frontsite_modal .modal-title').html(title);
+                    $('#dakshina_frontsite_modal .modal-body').html(responce);
+                    $('#dakshina_frontsite_modal .modal-dialog').addClass(width);
 
-                    if (!$('#feedback_frontsite_modal').hasClass('show')) {
-                        $('#feedback_frontsite_modal').modal('show');
+                    if (!$('#dakshina_frontsite_modal').hasClass('show')) {
+                        $('#d#akshina_frontsite_modal').modal('show');
                     }
 
                 }

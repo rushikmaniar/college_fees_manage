@@ -47,6 +47,7 @@ class Login extends CI_Controller {
             user_master.user_email,
             user_type.user_type_name,
             user_master.user_mobile,
+            user_master.user_image,
             ';
             $whr = array("user_email"=>$this->input->post('LoginFormEmail'),"user_pass"=>md5($this->input->post('LoginFormPassword')));
             $result = $this->CommonModel

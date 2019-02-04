@@ -1,33 +1,25 @@
 <?php //Scripts to include  ?>
+<!-- Required meta tags -->
 <meta charset="utf-8">
-<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="icon" href="<?= base_url(); ?>assets/images/gurudakshina-small-logo1.png" type="image/png">
 <title><?= $this->pageTitle; ?></title>
-<meta name="description" content="A free and modern UI toolkit for web makers based on the popular Bootstrap 4 framework.">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<!-- css -->
-<link rel="stylesheet" href="<?= base_url().'assets/fronted/js/bootstrap/css/bootstrap.min.css';?>">
-<link rel="stylesheet" href="<?= base_url().'assets/fronted/icons/font-awesome/css/font-awesome.min.css';?>">
-
-<!--jquery steps -->
-<link rel="stylesheet" href="<?= base_url().'assets/fronted/plugins/jquery.steps/css/jquery.steps.css'; ?>">
-
-<!-- select2 -->
-<link rel="stylesheet" href="<?= base_url().'assets/fronted/plugins/select2/css/select2.min.css'; ?>">
-
-<!-- toastr -->
-<link rel="stylesheet" href="<?= base_url().'assets/fronted/plugins/toastr/toastr.min.css'; ?>">
-
-<!-- shards -->
-<link rel="stylesheet" href="<?= base_url().'assets/fronted/css/shards.min.css'; ?>">
-
-<!-- Favicon icon -->
-<link rel="icon" type="image/png" sizes="16x16" href="<?= base_url();?>images/favicon.png">
-
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="<?= base_url(); ?>assets/css/bootstrap.css">
+<link rel="stylesheet" href="<?= base_url(); ?>assets/vendors/linericon/style.css">
+<link rel="stylesheet" href="<?= base_url(); ?>assets/css/font-awesome.min.css">
+<link rel="stylesheet" href="<?= base_url(); ?>assets/vendors/owl-carousel/owl.carousel.min.css">
+<link rel="stylesheet" href="<?= base_url(); ?>assets/vendors/lightbox/simpleLightbox.css">
+<link rel="stylesheet" href="<?= base_url(); ?>assets/vendors/nice-select/css/nice-select.css">
+<link rel="stylesheet" href="<?= base_url(); ?>assets/vendors/animate-css/animate.css">
+<link rel="stylesheet" href="<?= base_url(); ?>assets/vendors/popup/magnific-popup.css">
+<!-- main css -->
+<link rel="stylesheet" href="<?= base_url(); ?>assets/css/style.css">
+<link rel="stylesheet" href="<?= base_url(); ?>assets/css/responsive.css">
 <!-- js -->
-<script src="<?= base_url().'assets/fronted/js/jquery/jquery.min.js';?>"></script>
-<script src="<?= base_url().'assets/fronted/js/bootstrap/js/popper.min.js';?>"></script>
-<script src="<?= base_url().'assets/fronted/js/bootstrap/js/bootstrap.min.js';?>"></script>
+
+<script src="<?= base_url(); ?>assets/backoffice/vendor/jquery/jquery.min.js"></script>
+<script src="<?= base_url().'assets/js/bootstrap.min.js';?>"></script>
 
 
 <script type="text/javascript">
