@@ -11,7 +11,8 @@ class AdminController extends CI_Controller {
 	public $total_category = 0;
 	public $total_section = 0;
 	public $per_page = 10;
-	
+	protected $site_settings_data = array();
+
 	public function __construct()
 	{
         parent::__construct();
@@ -22,6 +23,14 @@ class AdminController extends CI_Controller {
             $result = $this->CommonModel->getRecord("user_master",$whr);
             if($result->num_rows() == 1){
                 //continue
+                $this->site_settings_data = $this->CommonModel->getRecord('site_settings')->result_array();
+                $temp = array();
+
+                foreach ($this->site_settings_data as $value){
+                    $temp[$value['settings_key']] = $value['settings_value'];
+                }
+                $this->site_settings_data = $temp;
+
             }else{
                 $this->session->unset_userdata('dakshina-admin');
                 redirect(base_url('backoffice/login'));

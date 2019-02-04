@@ -31,7 +31,7 @@ class Login extends CI_Controller {
                     ))
                 ->getRecord('user_master',array('user_email'=>$userdata['user_email'],'user_type.user_type_name'=>'admin'));
 
-            if($data->num_row() == 1){
+            if($data->num_rows() == 1){
                 redirect('backoffice/dashboard','refresh');
             }else{
                 redirect('backoffice/Login/logout','refresh');

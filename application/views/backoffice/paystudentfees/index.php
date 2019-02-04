@@ -91,13 +91,27 @@
                     <?php
                     if ((isset($remaing_class_fees))):
                         foreach ($remaing_class_fees as $value):?>
+                            <form name="tution_fees_frm" method="post" action="<?= base_url(); ?>backoffice/PayStudentFees/payTutionFeesOnline">
                             <ul>
-                                <li>Class Name : <?= $value['class_name']; ?></li>
-                                <li>Stream Name : <?= $value['stream_name']; ?></li>
+                                <li>
+                                    <input type="hidden" name="tution_fees_frm_stud_id" value="<?= $row['stud_id']; ?>">
+                                    <input type="hidden" name="tution_fees_frm_class_id" value="<?= $value['class_id']; ?>">
+                                    <input type="hidden" name="tution_fees_frm_stream_id" value="<?= $value['stream_id']; ?>">
+                                    <input type="hidden" name="tution_fees_frm_semester" value="<?= $value['semester']; ?>">
+                                    <input type="hidden" name="tution_fees_frm_class_name" value="<?= $value['class_name']; ?>">
+                                    Class Name : <?= $value['class_name']; ?>
+                                </li>
+                                <li>
+                                    Stream Name : <?= $value['stream_name']; ?></li>
                                 <li>Semester : <?= $value['semester']; ?></li>
-                                <li>Tution Fees To Pay : <?= $value['class_tution_fees']; ?></li>
-                                <li><button type="button" class="btn-sm btn-success">Pay now </button> </li>
+                                <li>
+                                    <input type="hidden" name="tution_fees_frm_tution_fees_amt" value="<?=$value['class_tution_fees']?>">
+                                    Tution Fees To Pay : <?= $value['class_tution_fees']; ?></li>
+                                <li>
+                                    <button type="submit" class="btn-sm btn-success" onclick="confirm('Are U sure . Want To Pay Tution Fees')">Pay Fees Online</button>
+                                </li>
                             </ul>
+                            </form>
                             <hr>
                         <?php endforeach;
                     endif;
