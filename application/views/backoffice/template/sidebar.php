@@ -56,6 +56,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="<?= base_url()?>backoffice/PayStudentFees">Pay Student Fees</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= base_url()?>backoffice/SiteSettings">Site Settings</a>
+                            </li>
                         </ul>
                     </div>
                 </li>

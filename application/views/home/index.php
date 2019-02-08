@@ -19,7 +19,7 @@
             <div class="banner_content text-center">
                 <h3>Worth what you pay <br />Excellent Learning, Innovative Teaching</h3>
                 <p>Tense, Nervous, Fees Payment?</p>
-                <a class="main_btn" href="<?= base_url(); ?>/Courses/CourseDetails">Get Started</a>
+                <a class="main_btn" href="<?= base_url('PayStudentFees/index'); ?>">Instant Pay </a>
             </div>
         </div>
     </div>

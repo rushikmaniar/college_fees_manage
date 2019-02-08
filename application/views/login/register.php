@@ -53,6 +53,10 @@
 
         }
     </style>
+    <script type="text/javascript">
+        var base_url = "<?= base_url();?>";
+        var SITE_URL = "<?= site_url(); ?>";
+    </script>
 </head>
 
 <body>
@@ -63,25 +67,22 @@
     <div class="card ">
         <div class="card-header text-center"><a href="#"><img class="logo-img" src="<?= base_url()?>assets/images/gurudakshina-medium-logo.jpg" alt="logo"></a><span class="splash-description">Please enter your user information.</span></div>
         <div class="card-body">
-            <form id="LoginForm" method="post">
+            <form id="registerForm" method="post">
                 <div class="form-group">
-                    <input class="form-control form-control-lg success"  type="text" placeholder="User Email" name="LoginFormEmail" autocomplete="off">
+                    <input class="form-control form-control-lg success"  type="text" placeholder="User Email" name="registerFormEmail" autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <input class="form-control form-control-lg" name="LoginFormPassword" type="password" placeholder="Password">
+                    <input class="form-control form-control-lg" name="registerFormPassword" type="password" placeholder="Password">
                 </div>
                 <div class="form-group">
-                    <label class="custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox"><span class="custom-control-label">Remember Me</span>
-                    </label>
+                    <input class="form-control form-control-lg success"  type="text" placeholder="User Mobile" id="registerFormMobile" name="registerFormMobile" autocomplete="off">
                 </div>
-                <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Sign Up</button>
             </form>
         </div>
         <div class="card-footer bg-white p-0  ">
             <div class="card-footer-item card-footer-item-bordered">
-                <a href="#" class="footer-link">Forgot Password</a>
-                |   <a href="<?= base_url('login/register'); ?>" style="color: #1c95d4" class="footer-link">Not a Memeber ?</a>
+                <a href="<?= base_url('login/index'); ?>" style="color: #1c95d4" class="footer-link">Already Memeber?</a>
             </div>
         </div>
     </div>
@@ -104,7 +105,7 @@
         toastr["success"]('<?= $this->session->flashdata('success') ?>', "Success");
         <?php endif; ?>
 
-        $("#LoginForm").validate({
+        $("#registerForm").validate({
             errorPlacement: function (e, a) {
                 jQuery(a).parents(".form-group").append(e);
                 jQuery(e).parent().find('ul').addClass('filled')
@@ -120,21 +121,39 @@
             wrapper:'ul',
             rules:
                 {
-                    LoginFormEmail: {
+                    registerFormEmail: {
                         required: true,
                         email:true
                     },
-                    LoginFormPassword: {
+                    registerFormPassword: {
                         required: true
+                    },
+                    registerFormMobile: {
+                        required: true,
+                        remote: {
+                            url: base_url + "login/checkexists/",
+                            type: "post",
+                            data: {
+                                'table': 'user_master',
+                                'field': 'user_mobile',
+                                user_mobile: function () {
+                                    return $('#registerFormMobile').val();
+                                }
+                            }
+                        }
                     }
                 },
             messages:
                 {
-                    LoginFormEmail: {
+                    registerFormEmail: {
                         required: "Email Required",
                         email: "Enter Valid Email"
                     },
-                    LoginFormPassword: {
+                    registerFormMobile: {
+                        required: "Mobile Required",
+                        remote:"Mobile"
+                    },
+                    registerFormPassword: {
                         required: "Password Required"
                     }
                 }

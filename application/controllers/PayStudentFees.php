@@ -7,7 +7,7 @@
  */
 require_once(FCPATH . 'application/libraries/instamojo.php');
 
-class PayStudentFees extends AdminController
+class PayStudentFees extends SiteController
 {
     public function __construct()
     {
@@ -16,8 +16,9 @@ class PayStudentFees extends AdminController
 
     public function index()
     {
-        if (isset($_POST['pay_student_fees_frm_stud_id'])) {
-            $OrWhere = array('stud_id' => 1);
+
+        if ((isset($_POST['pay_student_fees_frm_stud_id'])) && (isset($_POST['pay_student_fees_frm_stud_dob']))) {
+            $OrWhere = array('stud_id' => $_POST['pay_student_fees_frm_stud_id'],'stud_dob'=>$_POST['pay_student_fees_frm_stud_dob']);
             $val = '
                 student_master.stud_id,
                 student_master.enroll_no,
@@ -157,6 +158,7 @@ class PayStudentFees extends AdminController
      * */
     public function payTutionFeesOnline()
     {
+
         if (
             (isset($_POST['tution_fees_frm_stud_id'])) &&
             (isset($_POST['tution_fees_frm_class_name'])) &&
@@ -165,7 +167,6 @@ class PayStudentFees extends AdminController
             (isset($_POST['tution_fees_frm_semester'])) &&
             (isset($_POST['tution_fees_frm_tution_fees_amt']))) {
 
-            $userdata = $this->session->userdata('dakshina-admin');
             //generate instamojo request
 
 
@@ -177,11 +178,9 @@ class PayStudentFees extends AdminController
                     array(
                         "purpose" => $_POST['tution_fees_frm_class_name'] . ' Tution Fees ',
                         "amount" => $_POST['tution_fees_frm_tution_fees_amt'],
-                        "send_email" => true,
                         "send_sms" => true,
                         "phone" => 8238288595,
-                        "email" => $userdata['user_email'],
-                        "redirect_url" => base_url('backoffice/PayStudentFees/payTutionFeesOnlineResponse')
+                        "redirect_url" => base_url('PayStudentFees/payTutionFeesOnlineResponse')
                     ));
 
                 //store request in payment_request table
@@ -209,7 +208,7 @@ class PayStudentFees extends AdminController
         $api = new Instamojo($this->site_settings_data['instamojo_api_key'], $this->site_settings_data['instamojo_api_token'], 'https://test.instamojo.com/api/1.1/');
         try {
             $response = $api->paymentRequestStatus($_GET['payment_request_id']);
-            $userdata = $this->session->userdata('dakshina-admin');
+
             if ($response['status'] == "Completed" && (isset($response['payments'][0]['payment_id'])) && (isset($response['id']))) {
                 $check_exists = $this->CommonModel->getRecord('fees_receipt_records', array('payment_id' => $response['payments'][0]['payment_id']))->num_rows();
                 if ($check_exists == 0) {
@@ -220,7 +219,6 @@ class PayStudentFees extends AdminController
                     //generate new receipt
                     $receipt_data = array(
                         'stud_id' => $request_data['stud_id'],
-                        'user_id' => $userdata['user_id'],
                         'receipt_date' => date('Y-m-d'),
                         'sub_total' => $response['amount'],
                         'final_total' => $response['amount'],
@@ -263,7 +261,6 @@ class PayStudentFees extends AdminController
                         'receipt_id' => $receipt_no,
                         'payment_id' => $response['payments'][0]['payment_id'],
                         'stud_name' => $student_data['stud_name'],
-                        'user_name' => $userdata['user_email'],
                         'class_name' => $this->CommonModel->getRecord('class_master', array('class_id' => $request_data['class_id']))->row_array()['class_name'],
                         'receipt_date' => $receipt_data['receipt_date'],
                         'payed_amt' => $response['amount']
@@ -274,7 +271,7 @@ class PayStudentFees extends AdminController
                     $this->render('paystudentfees/paysuccess.php');
 
                 } else {
-                    redirect(base_url('backoffice/PayStudentFees'));
+                    redirect(base_url('PayStudentFees/index'), 'refresh');
                 }
             }
 
@@ -284,9 +281,14 @@ class PayStudentFees extends AdminController
         }
     }
 
-    /*
-     * Pay Fees By Cash
-     * */
+    public function getStudentList()
+    {
+        $student_list = $this->CommonModel->getRecord('student_master', array('stud_class_id' => $_POST['class_id']), 'student_master.stud_id,student_master.stud_name')->result_array();
+        $response_array['student_list'] = $student_list;
+        echo json_encode($response_array);
+        exit;
+    }
+
     public function paytutionfeesByCash()
     {
         if (
@@ -296,7 +298,6 @@ class PayStudentFees extends AdminController
             (isset($_POST['tution_fees_frm_stream_id'])) &&
             (isset($_POST['tution_fees_frm_semester'])) &&
             (isset($_POST['tution_fees_frm_tution_fees_amt']))) {
-
 
 
             //generate new receipt
@@ -328,59 +329,11 @@ class PayStudentFees extends AdminController
             );
 
             $paid_fees_record = $this->CommonModel->save('paid_fees_records', $paid_fees_data);
+            $this->CommonModel->save('payment_request', $paid_fees_data);
 
         }
         redirect(base_url('backoffice/PayStudentFees'));
     }
 
-    /*
-     * Pay Fees By Cash
-     * */
-    public function paytutionfeesByBank()
-    {
-        if (
-            (isset($_POST['tution_fees_frm_stud_id'])) &&
-            (isset($_POST['tution_fees_frm_class_name'])) &&
-            (isset($_POST['tution_fees_frm_class_id'])) &&
-            (isset($_POST['tution_fees_frm_stream_id'])) &&
-            (isset($_POST['tution_fees_frm_semester'])) &&
-            (isset($_POST['tution_fees_frm_bank_name'])) &&
-            (isset($_POST['tution_fees_frm_cheque_no'])) &&
-            (isset($_POST['tution_fees_frm_tution_fees_amt']))) {
 
-
-
-            //generate new receipt
-            $receipt_data = array(
-                'stud_id' => $_POST['tution_fees_frm_stud_id'],
-                'receipt_date' => date('Y-m-d'),
-                'sub_total' => $_POST['tution_fees_frm_tution_fees_amt'],
-                'final_total' => $_POST['tution_fees_frm_tution_fees_amt'],
-                'mode_of_payment' => 2,
-                'payment_id' => null,
-                'payed_amount' => $_POST['tution_fees_frm_tution_fees_amt'],
-                'bank_name' => $_POST['tution_fees_frm_bank_name'],
-                'cheque_no' => $_POST['tution_fees_frm_cheque_no']
-            );
-
-            $receipt_no = $this->CommonModel->save('fees_receipt_records', $receipt_data);
-
-
-            //insert into paid fees_record_table
-
-            $paid_fees_data = array(
-                'receipt_id' => $receipt_no,
-                'stud_id' => $_POST['tution_fees_frm_stud_id'],
-                'class_id' => $_POST['tution_fees_frm_class_id'],
-                'stream_id' => $_POST['tution_fees_frm_stream_id'],
-                'semester' => $_POST['tution_fees_frm_semester'],
-                'is_tution_fees' => 1,
-                'tution_fees' => $_POST['tution_fees_frm_tution_fees_amt']
-            );
-
-            $paid_fees_record = $this->CommonModel->save('paid_fees_records', $paid_fees_data);
-
-        }
-        redirect(base_url('backoffice/PayStudentFees'));
-    }
 }

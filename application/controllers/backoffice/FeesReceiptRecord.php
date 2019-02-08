@@ -21,7 +21,8 @@ class FeesReceiptRecord extends AdminController
         fees_receipt_records.sub_total,
         fees_receipt_records.late_fees,
         fees_receipt_records.final_total,
-        fees_receipt_records.mode_of_payment
+        fees_receipt_records.mode_of_payment,
+        fees_receipt_records.payed_amount
         ';
         $fees_receipt_records_data = $this->CommonModel
             ->dbOrderBy(array('fees_receipt_records.fee_receipt_id' => 'DESC'))
@@ -39,7 +40,7 @@ class FeesReceiptRecord extends AdminController
                     ),
                     array(
                         'table' => 'class_master',
-                        'condition' => 'fees_receipt_records.stud_class_id = class_master.class_id',
+                        'condition' => 'fees_receipt_records.stud_id = class_master.class_id',
                         'jointype' => 'inner'
                     )
                 )

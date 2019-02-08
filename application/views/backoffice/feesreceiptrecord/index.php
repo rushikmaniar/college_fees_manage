@@ -12,7 +12,6 @@
                 <th>final Total</th>
                 <th>Mode Of Payment</th>
                 <th>Payed Amount</th>
-                <th class="text-center">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -27,15 +26,6 @@
                     <td><?= $row['final_total'] ?></td>
                     <td><?= $row['mode_of_payment'] ?></td>
                     <td><?= $row['payed_amount'] ?></td>
-                    <td class="text-center">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-success btn-sm"
-                                    data-container="body" title="Edit User"
-                                    >
-                                <i class="ti-pencil-alt"></i>
-                            </button>
-                        </div>
-                    </td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

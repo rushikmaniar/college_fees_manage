@@ -17,14 +17,14 @@
 
             <div class="col-sm-6">
                 <div class="form-group">
-                    <button type="button" class="btn btn-success form-control" style="margin-top: 30px"> Get Status
+                    <button type="submit" class="btn btn-success form-control" style="margin-top: 30px"> Get Status
                     </button>
                 </div>
             </div>
 
         </div>
         <?= form_close(); ?>
-
+<?php if (isset($_POST['pay_student_fees_frm_stud_id'])) {?>
         <table class="display nowrap table table-hover table-striped table-bordered " style="width: 100%"
                id="PayFeesTable">
             <thead>
@@ -110,8 +110,28 @@
                                 <li>
                                     <button type="submit" class="btn-sm btn-success" onclick="if(!confirm('Are U sure . Want To Pay Tution Fees'))return false;">Pay Fees Online</button>
                                 </li>
+                                <li>
+                                    <button type="submit" class="btn-sm btn-success" onclick="if(!confirm('Are U sure . Want To Pay Tution Fees'))return false;">Cash Payment</button>
+                                </li>
+
                             </ul>
                             </form>
+                            <ul><li><button type="button" class="btn-sm btn-success" onclick="showBank(<?= $value['class_id']; ?>)">Pay By Bank</button></li></ul>
+                            <div style="display: none" id="bank_frm_<?= $value['class_id']; ?>">
+                            <form name="tution_fees_frm" method="post" action="<?= base_url(); ?>backoffice/PayStudentFees/paytutionfeesByBank">
+                                <input type="hidden" name="tution_fees_frm_stud_id" value="<?= $row['stud_id']; ?>">
+                                <input type="hidden" name="tution_fees_frm_class_id" value="<?= $value['class_id']; ?>">
+                                <input type="hidden" name="tution_fees_frm_stream_id" value="<?= $value['stream_id']; ?>">
+                                <input type="hidden" name="tution_fees_frm_semester" value="<?= $value['semester']; ?>">
+                                <input type="hidden" name="tution_fees_frm_class_name" value="<?= $value['class_name']; ?>">
+                                <input type="hidden" name="tution_fees_frm_tution_fees_amt" value="<?=$value['class_tution_fees']?>">
+                                <h4>Bank Name : </h4>
+                                <input type="text" name="tution_fees_frm_bank_name" class="form-control" required>
+                                <h4>cheque no : </h4>
+                                <input type="text" name="tution_fees_frm_cheque_no" class="form-control" required>
+                                <button type="submit" class="btn-sm btn-success" onclick="if(!confirm('Are U sure . Want To Pay Tution Fees'))return false;">Bank Payment</button>
+                            </form>
+                            </div>
                             <hr>
                         <?php endforeach;
                     endif;
@@ -121,11 +141,15 @@
 
             </tbody>
         </table>
+        <?php } ?>
     </div>
 
 </div>
 
 <script type="text/javascript">
+    function showBank(class_id) {
+        $('#bank_frm_'+class_id).css('display','block');
+    }
     $(document).ready(function () {
         $('#pay_student_fees_frm_stud_id').select2();
     });

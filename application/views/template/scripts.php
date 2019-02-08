@@ -21,6 +21,13 @@
 <script src="<?= base_url(); ?>assets/backoffice/vendor/jquery/jquery.min.js"></script>
 <script src="<?= base_url().'assets/js/bootstrap.min.js';?>"></script>
 
+<!-- Select2 -->
+<link href="<?= base_url();?>assets/backoffice/plugins/select2/css/select2.min.css" rel="stylesheet">
+<script src="<?= base_url()?>assets/backoffice/plugins/select2/js/select2.min.js"></script>
+<!-- toaster -->
+<link href="<?= base_url();?>assets/backoffice/plugins/toastr/toastr.min.css" rel="stylesheet">
+<script src="<?= base_url();?>assets/backoffice/plugins/toastr/toastr.min.js?>"></script>
+
 
 <script type="text/javascript">
     var base_url = "<?= base_url();?>";

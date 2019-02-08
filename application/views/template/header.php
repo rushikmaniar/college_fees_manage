@@ -36,7 +36,6 @@
                         </ul>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="<?= base_url(); ?>ContactUs" style="font-size: medium">Contact Us</a></li>
-                    <li class="nav-item"><a class="nav-link"> <button type="button" data-container="body" title="Login Register" onclick="ajaxModel('Login/index','Login/Register',800)" class="main_btn btn-md">Login / Register</button></a></li>
                 </ul>
 
             </div>

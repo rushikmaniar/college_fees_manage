@@ -22,7 +22,7 @@ class Department extends AdminController
 
         $this->pageTitle = 'Department Management';
 
-        $this->pageData['stream_data'] = $department_data;
+        $this->pageData['department_data'] = $department_data;
         $this->render("Department/index.php");
     }
     
